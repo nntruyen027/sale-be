@@ -13,3 +13,5 @@ CREATE TABLE files
 
     CONSTRAINT fk_user_files FOREIGN KEY (user_id) REFERENCES auth.users (id) ON DELETE SET NULL
 );
+
+
