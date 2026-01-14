@@ -12,12 +12,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.List;
 import java.util.Optional;
 
 @Configuration
 @AllArgsConstructor
+@Profile("!test")
 public class DataInitializer {
 
     private static final String SUPER_ADMIN_CODE = "SUPER_ADMIN";
