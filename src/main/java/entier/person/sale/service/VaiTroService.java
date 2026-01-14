@@ -15,19 +15,8 @@ public class VaiTroService {
     private final RoleRepo roleRepo;
 
     public PageResponse<RoleRes> layTatCaVaiTro(String search, int page, int size) {
-        List<RoleRes> data = roleRepo.layTatCaVaiTro(search, page, size)
-                .stream().toList();
+        return roleRepo.layTatCaVaiTro(search, page, size);
 
-        long totalElements = roleRepo.demTatCaVaiTro(search);
-        int totalPages = (int) Math.ceil((double) totalElements / size);
-
-        return PageResponse.<RoleRes>builder()
-                .totalElements(totalElements)
-                .totalPages(totalPages)
-                .page(page)
-                .size(size)
-                .data(data)
-                .build();
     }
 
     public RoleRes phanQuyenChoVaiTro(Long id, List<String> permissions) {

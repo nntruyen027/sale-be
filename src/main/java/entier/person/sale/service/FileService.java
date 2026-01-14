@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -59,22 +58,8 @@ public class FileService {
     // Lấy danh sách file phân trang
     // -----------------------
     public PageResponse<FileRes> getAll(String search, int page, int size) {
-        List<FileRes> fileRes = fileRepo
-                .layTatCaFile(search, page, size)
-                .stream()
-                .toList();
-
-        long totalElements = fileRepo.demTatCaFile(search);
-
-        int totalPages = (int) Math.ceil((double) totalElements / size);
-
-        return PageResponse.<FileRes>builder()
-                .data(fileRes)
-                .page(page)
-                .size(size)
-                .totalPages(totalPages)
-                .totalElements(totalElements)
-                .build();
+        return fileRepo
+                .layTatCaFile(search, page, size);
     }
 
     // -----------------------
