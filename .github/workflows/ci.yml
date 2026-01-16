@@ -22,5 +22,9 @@ jobs:
 
       - name: Build project
         env:
-          DB_HOST_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{secrets.DB_HOST}}
+          DB_HOST_USERNAME: ${{secrets.DB_HOST_USERNAME}}
+          DB_HOST_PASSWORD: ${{secrets.DB_HOST_PASSWORD}}
+          SPRING_PROFILES_ACTIVE: test
         run: mvn clean verify
