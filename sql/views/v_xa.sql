@@ -2,10 +2,13 @@ DROP VIEW IF EXISTS dm_chung.v_xa;
 
 
 CREATE OR REPLACE VIEW dm_chung.v_xa AS
-SELECT x.id  AS out_id,
+SELECT x.id,
        x.ten,
-       x.ghi_chu,
-       x.tinh_id,
-       t.ten AS ten_tinh
+       x.ghiChu    as "ghiChu",
+       x.tinhid,
+       to_jsonb(t) as tinh
 FROM dm_chung.xa x
-         LEFT JOIN dm_chung.tinh t ON t.id = x.tinh_id
+         LEFT JOIN dm_chung.v_tinh t ON t.id = x.tinhid;
+
+
+select dm_chung.fn_lay_tat_ca_xa();

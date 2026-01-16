@@ -41,4 +41,6 @@ public class AdminPermissionController {
     ) {
         return quyenService.layTatCaQuyen(search, page, limit);
     }
+
+    
 }
