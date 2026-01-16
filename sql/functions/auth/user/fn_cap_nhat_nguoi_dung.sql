@@ -4,6 +4,7 @@ CREATE OR REPLACE FUNCTION auth.fn_cap_nhat_nguoi_dung(
     p_user_id BIGINT,
     p_ho_ten VARCHAR(500),
     p_avatar VARCHAR(500),
+    p_email VARCHAR(500),
     p_is_active BOOLEAN DEFAULT true
 )
     RETURNS JSONB
@@ -18,9 +19,10 @@ BEGIN
     END IF;
 
     UPDATE auth.users
-    SET ho_ten    = p_ho_ten,
-        avatar    = p_avatar,
-        is_active = p_is_active
+    SET "hoTen"    = p_ho_ten,
+        avatar     = p_avatar,
+        email      = p_email,
+        "isActive" = p_is_active
     WHERE id = p_user_id;
 
     -- Trả về user dạng JSON

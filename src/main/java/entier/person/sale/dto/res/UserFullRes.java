@@ -1,15 +1,17 @@
 package entier.person.sale.dto.res;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserFullRes {
     private Long id;
 
@@ -17,13 +19,16 @@ public class UserFullRes {
 
     private String hoTen;
 
-    private Boolean isActive;
+    private String email;
+    
+    private String avatar;
 
-    private Date createdAt;
+    private Timestamp createdAt;
 
     private List<String> roles;
 
     private List<String> permissions;
 
+    private Boolean isActive;
 
 }

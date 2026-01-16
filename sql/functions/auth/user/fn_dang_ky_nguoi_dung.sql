@@ -1,0 +1,3 @@
+drop function if exists auth_fn_dang_ky_nguoi_dung;
+
+create function auth_fn_dang_ky_nguoi_dung

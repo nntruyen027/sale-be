@@ -4,9 +4,9 @@ CREATE OR REPLACE VIEW auth.v_users_login AS
 SELECT u.id,
        u.username,
        u.password,
-       u.ho_ten,
+       u.hoTen,
        u.avatar,
-       u.is_active,
+       u.isActive,
 
        COALESCE(array_agg(DISTINCT r.code)
                 FILTER (WHERE r.code IS NOT NULL), '{}') AS roles,

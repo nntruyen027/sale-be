@@ -4,7 +4,8 @@ CREATE OR REPLACE FUNCTION auth.fn_tao_nguoi_dung_quan_tri(
     p_username VARCHAR(120),
     p_ho_ten TEXT,
     p_password TEXT,
-    p_avatar TEXT
+    p_avatar TEXT,
+    p_email VARCHAR
 )
     RETURNS jsonb
     LANGUAGE plpgsql
@@ -29,10 +30,12 @@ BEGIN
     INSERT INTO auth.users(username,
                            password,
                            avatar,
-                           ho_ten)
+                           email,
+                           hoTen)
     VALUES (p_username,
             p_password,
             p_avatar,
+            p_email,
             p_ho_ten)
     RETURNING id INTO v_user_id;
 

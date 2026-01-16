@@ -3,10 +3,10 @@ DROP VIEW IF EXISTS auth.v_users_full;
 CREATE or replace VIEW auth.v_users_full AS
 SELECT u.id,
        u.username,
-       u.ho_ten,
+       u."hoTen",
        u.avatar,
-       u.is_active,
-       u.created_at,
+       u."isActive",
+       u."createdAt",
 
     /* ===== DANH SÁCH ROLE CODE ===== */
        COALESCE(

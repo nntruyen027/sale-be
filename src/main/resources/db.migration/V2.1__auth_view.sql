@@ -13,9 +13,9 @@ CREATE OR REPLACE VIEW auth.v_users_login AS
 SELECT u.id,
        u.username,
        u.password,
-       u.ho_ten,
+       u.hoTen,
        u.avatar,
-       u.is_active,
+       u.isActive,
 
        COALESCE(
                        array_agg(DISTINCT r.code)
@@ -112,10 +112,10 @@ GROUP BY u.id;
 CREATE OR REPLACE VIEW auth.v_users_full AS
 SELECT u.id,
        u.username,
-       u.ho_ten,
+       u.hoTen,
        u.avatar,
-       u.is_active,
-       u.created_at,
+       u.isActive,
+       u.createdAt,
 
        -- ===== DANH SÁCH ROLE CODE =====
        COALESCE(

@@ -21,7 +21,7 @@ BEGIN
     FROM auth.users u
     WHERE (
               p_search IS NULL OR p_search = ''
-                  OR unaccent(lower(u.ho_ten)) LIKE '%' || unaccent(lower(p_search)) || '%'
+                  OR unaccent(lower(u.hoTen)) LIKE '%' || unaccent(lower(p_search)) || '%'
                   OR u.email ILIKE '%' || p_search || '%'
                   OR u.username ILIKE '%' || p_search || '%'
               );

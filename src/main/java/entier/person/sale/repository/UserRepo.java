@@ -23,6 +23,7 @@ public class UserRepo {
                 "auth.fn_lay_nguoi_dung_theo_username",
                 List.of(username),
                 UserFullRes.class);
+        System.out.println(user);
         return Optional.ofNullable(user);
     }
 
@@ -80,4 +81,6 @@ public class UserRepo {
                 List.of(id, roles.toArray(new String[0])),
                 UserFullRes.class);
     }
+
+
 }

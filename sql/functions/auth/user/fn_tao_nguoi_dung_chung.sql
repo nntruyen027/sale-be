@@ -3,6 +3,7 @@ CREATE FUNCTION auth.fn_tao_nguoi_dung(
     p_username TEXT,
     p_password TEXT,
     p_ho_ten TEXT,
+    p_email VARCHAR,
     p_avatar TEXT DEFAULT NULL
 )
     RETURNS BIGINT
@@ -16,8 +17,8 @@ BEGIN
         RAISE EXCEPTION 'Username % đã tồn tại', p_username;
     END IF;
 
-    INSERT INTO auth.users(username, password, ho_ten, avatar)
-    VALUES (p_username, p_password, p_ho_ten, p_avatar)
+    INSERT INTO auth.users(username, password, "hoTen", avatar, email)
+    VALUES (p_username, p_password, p_ho_ten, p_avatar, p_email)
     RETURNING id INTO v_user_id;
 
     RETURN v_user_id;

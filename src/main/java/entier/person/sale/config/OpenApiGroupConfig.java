@@ -10,7 +10,7 @@ public class OpenApiGroupConfig {
     @Bean
     public GroupedOpenApi authApi() {
         return GroupedOpenApi.builder()
-                .group("Tài khoản - Công khai")
+                .group("Tài khoản")
                 .pathsToMatch("/auth/**")
                 .build();
     }
@@ -23,4 +23,19 @@ public class OpenApiGroupConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi fileApi() {
+        return GroupedOpenApi.builder()
+                .group("Tập tin")
+                .pathsToMatch("/files/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("Tập tin")
+                .pathsToMatch("/cong-khai/**")
+                .build();
+    }
 }

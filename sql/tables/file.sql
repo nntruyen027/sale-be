@@ -15,3 +15,5 @@ CREATE TABLE files
 );
 
 
+select auth.fn_lay_nguoi_dung_theo_username(p_username := 'superadmin');
+

@@ -12,9 +12,9 @@ BEGIN
     END IF;
 
     UPDATE auth.users
-    SET ho_ten    = p_ho_ten,
-        avatar    = p_avatar,
-        is_active = p_is_active
+    SET hoTen    = p_ho_ten,
+        avatar   = p_avatar,
+        isActive = p_is_active
     WHERE id = p_user_id;
 
     -- Trả về user dạng JSON
@@ -45,7 +45,7 @@ BEGIN
 
     UPDATE auth.users
     SET avatar = p_avatar,
-        ho_ten = p_ho_ten
+        hoTen  = p_ho_ten
     WHERE id = p_id;
 
     SELECT to_jsonb(a)
@@ -171,7 +171,7 @@ BEGIN
     FROM auth.users u
     WHERE (
               p_search IS NULL OR p_search = ''
-                  OR unaccent(lower(u.ho_ten)) LIKE '%' || unaccent(lower(p_search)) || '%'
+                  OR unaccent(lower(u.hoTen)) LIKE '%' || unaccent(lower(p_search)) || '%'
                   OR u.email ILIKE '%' || p_search || '%'
                   OR u.username ILIKE '%' || p_search || '%'
               );
@@ -637,7 +637,7 @@ BEGIN
         RAISE EXCEPTION 'Username % đã tồn tại', p_username;
     END IF;
 
-    INSERT INTO auth.users(username, password, ho_ten, avatar)
+    INSERT INTO auth.users(username, password, hoTen, avatar)
     VALUES (p_username, p_password, p_ho_ten, p_avatar)
     RETURNING id INTO v_user_id;
 
@@ -671,7 +671,7 @@ BEGIN
     INSERT INTO auth.users(username,
                            password,
                            avatar,
-                           ho_ten)
+                           hoTen)
     VALUES (p_username,
             p_password,
             p_avatar,
