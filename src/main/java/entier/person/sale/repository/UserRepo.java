@@ -1,11 +1,13 @@
 package entier.person.sale.repository;
 
+import entier.person.sale.dto.req.RegiserReq;
 import entier.person.sale.dto.res.UserAuthRes;
 import entier.person.sale.dto.res.UserFullRes;
 import entier.person.sale.util.DbFunctionExecutor;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,12 +76,26 @@ public class UserRepo {
      * roles phải là JSON ARRAY trong DB
      */
     public UserFullRes phanVaiTroChoNguoiDung(Long id, List<String> roles) {
-        System.out.println("id " + id);
-        System.out.println("roles " + roles);
+
         return dbFunctionExecutor.execute(
                 "auth.fn_phan_vai_tro_cho_nguoi_dung",
                 List.of(id, roles.toArray(new String[0])),
                 UserFullRes.class);
+    }
+
+    public UserFullRes dangKy(RegiserReq req) {
+        List<Object> params = new ArrayList<>();
+        params.add(req.getUsername());
+        params.add((req.getPassword()));
+        params.add(req.getHoTen());
+        params.add(req.getEmail());
+
+
+        return dbFunctionExecutor.execute(
+                "auth.fn_dang_ky",
+                params,
+                UserFullRes.class
+        );
     }
 
 

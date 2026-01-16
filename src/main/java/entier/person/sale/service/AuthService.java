@@ -1,5 +1,6 @@
 package entier.person.sale.service;
 
+import entier.person.sale.dto.req.RegiserReq;
 import entier.person.sale.dto.req.UpdatePassReq;
 import entier.person.sale.dto.res.UserAuthRes;
 import entier.person.sale.dto.res.UserFullRes;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
+
 
     public UserFullRes getCurrentUserDto() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -95,4 +97,10 @@ public class AuthService {
 
         userRepo.doiMatKhau(user.getId(), passwordEncoder.encode(newPassword));
     }
+
+    public UserFullRes dangKy(RegiserReq request) {
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        return userRepo.dangKy(request);
+    }
+
 }

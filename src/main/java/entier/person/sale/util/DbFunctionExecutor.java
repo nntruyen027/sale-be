@@ -15,6 +15,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class DbFunctionExecutor {
+
     private final DataSource dataSource;
     private final ObjectMapper objectMapper;
 
@@ -27,14 +28,16 @@ public class DbFunctionExecutor {
 
         try (
                 Connection conn = dataSource.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
             setParams(ps, params);
 
             ResultSet rs = ps.executeQuery();
-            if (!rs.next())
+            if (!rs.next()) {
                 return null;
+            }
 
-            // 👉 primitive / wrapper
+            // primitive / wrapper
             if (Number.class.isAssignableFrom(clazz)
                     || clazz == String.class
                     || clazz == Boolean.class) {
@@ -43,14 +46,32 @@ public class DbFunctionExecutor {
             }
 
             String json = rs.getString(1);
-            if (json == null)
+            if (json == null) {
                 return null;
+            }
 
             return objectMapper.readValue(json, clazz);
 
+        } catch (SQLException e) {
+
+            String msg = e.getMessage();
+
+            if (msg != null) {
+                // Bỏ phần "ERROR: "
+                if (msg.startsWith("ERROR:")) {
+                    msg = msg.substring(6).trim();
+                }
+
+                // Bỏ phần Where / line / function
+                int newLineIndex = msg.indexOf("\n");
+                if (newLineIndex > 0) {
+                    msg = msg.substring(0, newLineIndex).trim();
+                }
+            }
+
+            throw new RuntimeException(msg, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error executing function: " + functionName, e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -63,22 +84,42 @@ public class DbFunctionExecutor {
 
         try (
                 Connection conn = dataSource.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
             setParams(ps, params);
 
             ResultSet rs = ps.executeQuery();
-            if (!rs.next())
+            if (!rs.next()) {
                 return null;
+            }
 
             String json = rs.getString(1);
-            if (json == null)
+            if (json == null) {
                 return null;
+            }
 
             return objectMapper.readValue(json, typeReference);
 
+        } catch (SQLException e) {
+
+            String msg = e.getMessage();
+
+            if (msg != null) {
+                // Bỏ phần "ERROR: "
+                if (msg.startsWith("ERROR:")) {
+                    msg = msg.substring(6).trim();
+                }
+
+                // Bỏ phần Where / line / function
+                int newLineIndex = msg.indexOf("\n");
+                if (newLineIndex > 0) {
+                    msg = msg.substring(0, newLineIndex).trim();
+                }
+            }
+
+            throw new RuntimeException(msg, e);
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error executing function: " + functionName, e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -93,7 +134,8 @@ public class DbFunctionExecutor {
     private String paramsPlaceholder(int count) {
         return String.join(
                 ", ",
-                java.util.Collections.nCopies(count, "?"));
+                java.util.Collections.nCopies(count, "?")
+        );
     }
 
     private void setParams(PreparedStatement ps, List<Object> params)

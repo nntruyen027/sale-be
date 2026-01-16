@@ -1,4 +1,5 @@
 DROP FUNCTION IF EXISTS auth.fn_tao_nguoi_dung;
+
 CREATE FUNCTION auth.fn_tao_nguoi_dung(
     p_username TEXT,
     p_password TEXT,

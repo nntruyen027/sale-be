@@ -1,6 +1,7 @@
 package entier.person.sale.controller;
 
 import entier.person.sale.dto.req.LoginReq;
+import entier.person.sale.dto.req.RegiserReq;
 import entier.person.sale.dto.req.UpdatePassReq;
 import entier.person.sale.dto.res.LoginRes;
 import entier.person.sale.dto.res.UserFullRes;
@@ -62,11 +63,29 @@ public class AuthController {
 
             String token = jwtService.generateToken(request.getUsername());
             UserFullRes user = (userRepository.findByUsername(request.getUsername()).get());
+            if (!user.getIsActive())
+                throw new AppException("BAD_CREDENTIAL", "Thông tin đăng nhập không hợp lệ");
             return new LoginRes(token, user);
 
         } catch (BadCredentialsException ex) {
             throw new AppException("BAD_CREDENTIAL", "Thông tin đăng nhập không hợp lệ");
         }
+    }
+
+    // -----------------------------------------------------------
+    // Đăng ký
+    // -----------------------------------------------------------
+    @Operation(
+            summary = "Đăng ký hệ thống"
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Đăng ký thành công, trả về tài khoản",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Sai username hoặc password", content = @Content)
+    })
+    @PostMapping("/dang-ky")
+    public UserFullRes dangKy(@RequestBody RegiserReq request) {
+        return authService.dangKy(request);
     }
 
 
