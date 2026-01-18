@@ -1,7 +1,7 @@
 drop function if exists fn_sua_tham_so;
 
 create function fn_sua_tham_so(
-    p_id varchar,
+    p_id bigint,
     p_khoa varchar,
     p_kieu_du_lieu varchar,
     p_gia_tri varchar,

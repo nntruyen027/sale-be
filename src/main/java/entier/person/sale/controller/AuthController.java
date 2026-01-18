@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@Tag(name = "Xác thực & Tài khoản", description = "Quản lý đăng nhập, đăng ký giáo viên và thông tin người dùng")
+@Tag(name = "Xác thực & Tài khoản", description = "Quản lý đăng nhập, thông tin người dùng")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

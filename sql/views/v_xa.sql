@@ -11,4 +11,3 @@ FROM dm_chung.xa x
          LEFT JOIN dm_chung.v_tinh t ON t.id = x.tinhid;
 
 
-select dm_chung.fn_lay_tat_ca_xa();
