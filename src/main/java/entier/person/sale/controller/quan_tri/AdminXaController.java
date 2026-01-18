@@ -1,6 +1,8 @@
 package entier.person.sale.controller.quan_tri;
 
+import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
+import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.req.XaReq;
 import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.TinhRes;
@@ -23,7 +25,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,8 +39,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
-@PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Quản lý xã dành cho Admin")
+@HasPermission(permission = QuyenCons.XA_READ)
 public class AdminXaController {
 
     private final XaService xaService;
@@ -74,6 +75,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo xã thành công")
     @PostMapping
+    @HasPermission(permission = QuyenCons.ROLE_CREATE)
     public ResponseEntity<?> taoXa(@RequestBody XaReq xaReq) {
         return ResponseEntity.ok(xaService.taoXa(xaReq));
     }
@@ -88,6 +90,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Sửa xã thành công")
     @PutMapping("/{id}")
+    @HasPermission(permission = QuyenCons.ROLE_UPDATE)
     public ResponseEntity<?> suaXa(
             @PathVariable Long id,
             @RequestBody XaReq xaReq) {
@@ -105,6 +108,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xóa xã thành công")
     @DeleteMapping("/{id}")
+    @HasPermission(permission = QuyenCons.ROLE_DELETE)
     public ResponseEntity<?> xoaXa(@PathVariable Long id) {
         xaService.xoaXa(id);
         return ResponseEntity.ok().build();
@@ -124,6 +128,7 @@ public class AdminXaController {
                     content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
     })
     @GetMapping("/importer/template")
+    @HasPermission(permission = QuyenCons.ROLE_CREATE)
     public ResponseEntity<byte[]> downloadTemplate() throws IOException {
 
         ClassPathResource resource = new ClassPathResource("templates/mau_import_xa.xlsx");
@@ -176,6 +181,7 @@ public class AdminXaController {
             @ApiResponse(responseCode = "200", description = "Import thành công"),
             @ApiResponse(responseCode = "400", description = "File không hợp lệ", content = @Content)
     })
+    @HasPermission(permission = QuyenCons.ROLE_CREATE)
     @PostMapping(value = "/importer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> importXa(@RequestParam("file") MultipartFile file) throws IOException {
         xaService.importXa(file);

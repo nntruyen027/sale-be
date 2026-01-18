@@ -1,6 +1,8 @@
 package entier.person.sale.controller.quan_tri;
 
+import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
+import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.PermissionRes;
 import entier.person.sale.service.QuyenService;
@@ -10,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/quan-tri/quyen")
-@PreAuthorize("hasAuthority('ROLE_MANAGE')")
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị quyền dành cho quản trị viên")
+@HasPermission(permission = QuyenCons.QUYEN_READ)
 public class AdminPermissionController {
     private final QuyenService quyenService;
 
@@ -42,5 +43,5 @@ public class AdminPermissionController {
         return quyenService.layTatCaQuyen(search, page, limit);
     }
 
-    
+
 }

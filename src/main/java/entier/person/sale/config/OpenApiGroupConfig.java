@@ -34,7 +34,7 @@ public class OpenApiGroupConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("Tập tin")
+                .group("Công khai")
                 .pathsToMatch("/cong-khai/**")
                 .build();
     }
