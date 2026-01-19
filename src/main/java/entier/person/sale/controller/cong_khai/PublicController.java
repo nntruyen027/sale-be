@@ -1,10 +1,12 @@
-package entier.person.sale.controller;
+package entier.person.sale.controller.cong_khai;
 
 
 import entier.person.sale.config.SecurityApiResponses;
+import entier.person.sale.dto.res.LoaiSpRes;
 import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.TinhRes;
 import entier.person.sale.dto.res.XaRes;
+import entier.person.sale.service.LoaiSpService;
 import entier.person.sale.service.ThamSoService;
 import entier.person.sale.service.TinhService;
 import entier.person.sale.service.XaService;
@@ -27,6 +29,7 @@ public class PublicController {
     private final XaService xaService;
     private final TinhService tinhService;
     private final ThamSoService thamSoService;
+    private final LoaiSpService loaiSpService;
 
 
     // 1) Lấy danh sách tỉnh
@@ -70,6 +73,19 @@ public class PublicController {
             @PathVariable String khoa) {
 
         return ResponseEntity.ok(thamSoService.layThamSo(khoa));
+    }
+
+    // 1) Lấy danh sách loại  sản phẩm
+    @Operation(summary = "Lấy danh sách loại sản phẩm (phân trang + tìm kiếm)")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+    @GetMapping("/loai-san-pham")
+    public ResponseEntity<PageResponse<LoaiSpRes>> layDsLoaiSp(
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return ResponseEntity.ok(loaiSpService.layDsLoaiSp(search, page, size));
     }
 
 }

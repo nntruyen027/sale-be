@@ -51,7 +51,14 @@ public enum QuyenCons {
     ORDER_READ("order:read"),
     ORDER_CREATE("order:create"),
     ORDER_UPDATE("order:update"),
-    ORDER_DELETE("order:delete");
+    ORDER_DELETE("order:delete"),
+
+
+    // ---- PRODUCT_TYPE ======
+    PTYPE_READ("ptype:read"),
+    PTYPE_CREATE("ptype:create"),
+    PTYPE_UPDATE("ptype:update"),
+    PTYPE_DELETE("ptype:delete");
 
 
     private final String permission;

@@ -14,6 +14,14 @@ declare
     v_data   jsonb;
     v_new_id bigint;
 begin
+    if not exists(select 1 from dm_chung.xa where id = p_xa_id) then
+        raise 'Xã với id: % không tồn tại', p_xa_id;
+    end if;
+
+    if not exists(select 1 from auth.users where id = p_user_id) then
+        raise 'Người dùng với id: % không tồn tại', p_user_id;
+    end if;
+
     insert into auth.dia_chi("xaId", "chiTiet", "userId", "dinhVi", "isDefault")
     values (p_xa_id, p_chi_tiet, p_user_id, p_dinh_vi, p_is_default)
     returning id into v_new_id;

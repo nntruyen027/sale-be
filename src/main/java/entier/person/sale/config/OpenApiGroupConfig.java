@@ -38,4 +38,12 @@ public class OpenApiGroupConfig {
                 .pathsToMatch("/cong-khai/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi diaChiApi() {
+        return GroupedOpenApi.builder()
+                .group("Địa chỉ")
+                .pathsToMatch("/dia-chi/**")
+                .build();
+    }
 }

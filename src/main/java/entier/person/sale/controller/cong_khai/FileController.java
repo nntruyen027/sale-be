@@ -1,4 +1,4 @@
-package entier.person.sale.controller;
+package entier.person.sale.controller.cong_khai;
 
 import entier.person.sale.dto.res.FileRes;
 import entier.person.sale.dto.res.PageResponse;

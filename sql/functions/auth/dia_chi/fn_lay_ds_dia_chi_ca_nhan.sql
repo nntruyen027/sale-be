@@ -9,7 +9,7 @@ $$
 declare
     v_data jsonb;
 begin
-    select to_jsonb(a) into v_data from auth.v_dia_chi a where a."userId" = p_user_id;
+    select jsonb_agg(to_jsonb(a)) into v_data from auth.v_dia_chi a where a."userId" = p_user_id;
 
     return v_data;
 
