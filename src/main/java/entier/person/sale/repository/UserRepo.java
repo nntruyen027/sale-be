@@ -1,6 +1,8 @@
 package entier.person.sale.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import entier.person.sale.dto.req.RegiserReq;
+import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.UserAuthRes;
 import entier.person.sale.dto.res.UserFullRes;
 import entier.person.sale.util.DbFunctionExecutor;
@@ -82,6 +84,49 @@ public class UserRepo {
                 List.of(id, roles.toArray(new String[0])),
                 UserFullRes.class);
     }
+
+    public PageResponse<UserFullRes> layDsNguoiDung(String search, int page, int limit) {
+        List<Object> params = new ArrayList<>();
+        params.add(search);
+        params.add(page);
+        params.add(limit);
+
+        return dbFunctionExecutor.execute(
+                "auth.fn_lay_ds_nguoi_dung",
+                params,
+                new TypeReference<PageResponse<UserFullRes>>() {
+
+                }
+        );
+    }
+
+    public UserFullRes suaNguoiDung(Long id, RegiserReq req) {
+        List<Object> params = new ArrayList<>();
+        params.add(id);
+        params.add(req.getUsername());
+        params.add((req.getPassword()));
+        params.add(req.getHoTen());
+        params.add(req.getEmail());
+
+
+        return dbFunctionExecutor.execute(
+                "auth.fn_sua_nguoi_dung",
+                params,
+                UserFullRes.class
+        );
+    }
+
+    public void xoaNguoiDung(Long id) {
+        List<Object> params = new ArrayList<>();
+        params.add(id);
+
+        dbFunctionExecutor.execute(
+                "auth.fn_xoa_nguoi_dung",
+                params,
+                UserFullRes.class
+        );
+    }
+
 
     public UserFullRes dangKy(RegiserReq req) {
         List<Object> params = new ArrayList<>();

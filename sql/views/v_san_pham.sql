@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS product.v_san_pham cascade;
+DROP VIEW IF EXISTS product.v_san_pham;
 
 CREATE OR REPLACE VIEW product.v_san_pham AS
 SELECT sp.id,
@@ -21,8 +21,7 @@ SELECT sp.id,
                        )
                                 ) FILTER (WHERE bt.id IS NOT NULL),
                        '[]'::jsonb
-       ) AS bien_the,
-
+       ) AS "bienThe",
        jsonb_build_object(
                'id', l.id,
                'ten', l.ten,
