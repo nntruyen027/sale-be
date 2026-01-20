@@ -99,7 +99,8 @@ public class AuthService {
     }
 
     public UserFullRes dangKy(RegiserReq request) {
-        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        if (!(request.getPassword() == null || request.getPassword().isBlank()))
+            request.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepo.dangKy(request);
     }
 

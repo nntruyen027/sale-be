@@ -14,13 +14,20 @@ $$
 DECLARE
     v_data jsonb;
 BEGIN
+    if p_password is null or p_password = '' then
+        update auth.users
+        set "hoTen" = p_ho_ten,
+            email   = p_email
+        where id = p_id;
+    end if;
 
-
-    update auth.users
-    set "hoTen"  = p_ho_ten,
-        password = p_password,
-        email    = p_email
-    where id = p_id;
+    if not (p_password is null or p_password = '') then
+        update auth.users
+        set "hoTen"  = p_ho_ten,
+            password = p_password,
+            email    = p_email
+        where id = p_id;
+    end if;
 
     SELECT to_jsonb(u)
     INTO v_data

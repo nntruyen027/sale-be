@@ -21,14 +21,16 @@ public class NguoiDungService {
         return userRepo.layDsNguoiDung(search, page, limit);
     }
 
-    public UserFullRes taoNguoiDung(RegiserReq nguoiDungReq) {
-        nguoiDungReq.setPassword(passwordEncoder.encode(nguoiDungReq.getPassword()));
-        return userRepo.dangKy(nguoiDungReq);
+    public UserFullRes taoNguoiDung(RegiserReq request) {
+        if (!(request.getPassword() == null || request.getPassword().isBlank()))
+            request.setPassword(passwordEncoder.encode(request.getPassword()));
+        return userRepo.dangKy(request);
     }
 
-    public UserFullRes suaNguoiDung(Long id, RegiserReq nguoiDungReq) {
-        nguoiDungReq.setPassword(passwordEncoder.encode(nguoiDungReq.getPassword()));
-        return userRepo.suaNguoiDung(id, nguoiDungReq);
+    public UserFullRes suaNguoiDung(Long id, RegiserReq request) {
+        if (!(request.getPassword() == null || request.getPassword().isBlank()))
+            request.setPassword(passwordEncoder.encode(request.getPassword()));
+        return userRepo.suaNguoiDung(id, request);
     }
 
     public UserFullRes phanVaiTroChoNguoiDung(Long id, List<String> dsMaQuyen) {
