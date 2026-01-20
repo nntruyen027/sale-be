@@ -1,11 +1,11 @@
-DROP FUNCTION IF EXISTS auth.fn_dang_ky;
+DROP FUNCTION IF EXISTS auth.fn_sua_nguoi_dung;
 
-CREATE FUNCTION auth.fn_dang_ky(
+CREATE FUNCTION auth.fn_sua_nguoi_dung(
     p_id bigint,
-    p_username TEXT,
-    p_password TEXT,
-    p_ho_ten TEXT,
-    p_email VARCHAR
+    p_username varchar,
+    p_password varchar,
+    p_ho_ten varchar,
+    p_email varchar
 )
     RETURNS jsonb
     LANGUAGE plpgsql

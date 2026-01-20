@@ -123,7 +123,7 @@ public class UserRepo {
         dbFunctionExecutor.execute(
                 "auth.fn_xoa_nguoi_dung",
                 params,
-                UserFullRes.class
+                Boolean.class
         );
     }
 

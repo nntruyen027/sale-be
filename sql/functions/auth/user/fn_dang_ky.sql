@@ -1,9 +1,9 @@
 DROP FUNCTION IF EXISTS auth.fn_dang_ky;
 
 CREATE FUNCTION auth.fn_dang_ky(
-    p_username TEXT,
-    p_password TEXT,
-    p_ho_ten TEXT,
+    p_username varchar,
+    p_password varchar,
+    p_ho_ten varchar,
     p_email VARCHAR
 )
     RETURNS jsonb
