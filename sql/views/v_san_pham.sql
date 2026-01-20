@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS product.v_san_pham;
+DROP VIEW IF EXISTS product.v_san_pham cascade;
 
 CREATE OR REPLACE VIEW product.v_san_pham AS
 SELECT sp.id,

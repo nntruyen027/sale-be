@@ -8,7 +8,7 @@ create table product.bien_the
     "hinhAnh"   varchar(500),
     "mauSac"    varchar(50),
     "kichCo"    varchar(50),
-    gia         numeric(12, 2) not null,
-    "tonKho"    int            not null default 0
+    gia         bigint not null,
+    "tonKho"    int    not null default 0
 )
 

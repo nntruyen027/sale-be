@@ -10,6 +10,6 @@ public class BienTheRes {
     String hinhAnh;
     String mauSac;
     String kichCo;
-    Double gia;
+    Long gia;
     Integer tonKho;
 }
