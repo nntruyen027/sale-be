@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS blog.hashtag CASCADE;
+
+CREATE TABLE blog.hashtag
+(
+    id   BIGSERIAL PRIMARY KEY,
+    ten  VARCHAR(100) UNIQUE NOT NULL,
+    slug VARCHAR(100) UNIQUE NOT NULL
+);

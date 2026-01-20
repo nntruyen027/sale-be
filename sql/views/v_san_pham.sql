@@ -25,11 +25,12 @@ SELECT sp.id,
 
        jsonb_build_object(
                'id', l.id,
-               'ten', l.ten
+               'ten', l.ten,
+               'hinhAnh', l."hinhAnh",
+               'parent', l.parent
        ) AS loai
-
 FROM product.san_pham sp
-         LEFT JOIN product.loai l ON sp."loaiId" = l.id
+         LEFT JOIN product.v_loai l ON sp."loaiId" = l.id
          LEFT JOIN product.bien_the bt ON bt."sanPhamId" = sp.id
 
 GROUP BY sp.id,
@@ -40,4 +41,5 @@ GROUP BY sp.id,
          sp."ngayTao",
          l.id,
          l.ten,
-         l."parentId";
+         l."hinhAnh",
+         l."parent";
