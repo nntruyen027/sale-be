@@ -1,25 +1,28 @@
-drop function if exists product.fn_them_san_pham;
+drop function if exists product.fn_them_bien_the;
 
-create function product.fn_them_san_pham(
-    pLoaiSp bigint,
-    pTen varchar,
+create function product.fn_them_bien_the(
+    pSanPhamId bigint,
+    pSku varchar,
     pHinhAnh varchar,
-    pMoTa varchar
+    pMauSac varchar,
+    pKichCo varchar,
+    pGia numeric(12, 2),
+    pTonKho int
 )
     returns jsonb
 as
 $$
 declare
-    v_new_id bigint;
     v_data   jsonb;
+    v_new_id bigint;
 begin
-    insert into product.san_pham("loaiId", ten, "hinhAnh", "moTa")
-    values (pLoaiSp, pTen, pHinhAnh, pMoTa)
+    insert into product.bien_the("sanPhamId", sku, "hinhAnh", "mauSac", "kichCo", gia, "tonKho")
+    values (pSanPhamId, pSku, pHinhAnh, pMauSac, pKichCo, pGia, pTonKho)
     returning id into v_new_id;
 
-    select to_jsonb(sp)
+    select to_jsonb(bt)
     into v_data
-    from product.v_san_pham sp
+    from product.v_bien_the bt
     where id = v_new_id
     limit 1;
 

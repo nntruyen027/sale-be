@@ -8,6 +8,6 @@ public class BienTheReq {
     String hinhAnh;
     String mauSac;
     String kichCo;
-    String gia;
+    Double gia;
     Integer tonKho;
 }

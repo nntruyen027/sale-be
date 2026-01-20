@@ -1,6 +1,7 @@
 drop function if exists product.fn_sua_bien_the;
 
 create function product.fn_sua_bien_the(
+    pId bigint,
     pSanPhamId bigint,
     pSku varchar,
     pHinhAnh varchar,
@@ -13,17 +14,30 @@ create function product.fn_sua_bien_the(
 as
 $$
 declare
-    v_data   jsonb;
-    v_new_id bigint;
+    v_data jsonb;
 begin
-    insert into product.bien_the("sanPhamId", sku, "hinhAnh", "mauSac", "kichCo", gia, "tonKho")
-    values (pSanPhamId, pSku, pHinhAnh, pMauSac, pKichCo, pGia, pTonKho)
-    returning id into v_new_id;
+    if not exists(select 1
+                  from product.bien_the
+                  where id = pId
+                    and pSanPhamId = "sanPhamId") then
+        raise 'Không tồn tại biến thể % của sản phẩm %', pId, pSanPhamId;
+    end if;
+
+    update product.bien_the
+    set gia       = pGia,
+        sku       = pSku,
+        "tonKho"  = pTonKho,
+        "kichCo"  = pKichCo,
+        "mauSac"  = pMauSac,
+        "hinhAnh" = pHinhAnh
+    where id = pId
+      and pSanPhamId = "sanPhamId";
 
     select to_jsonb(bt)
     into v_data
     from product.v_bien_the bt
-    where id = v_new_id
+    where id = pId
+      and pSanPhamId = "sanPhamId"
     limit 1;
 
     return v_data;
