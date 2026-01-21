@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị người dùng (Admin)")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_READ.value())")
+@PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).USER_READ.value())")
 public class AdminNguoiDungController {
 
     private final NguoiDungService nguoiDungService;
@@ -55,7 +55,7 @@ public class AdminNguoiDungController {
             @ApiResponse(responseCode = "200", description = "Tạo thành công")
     })
     @SecurityApiResponses
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_CREATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).USER_CREATE.value())")
     @PostMapping
     public ResponseEntity<UserFullRes> taoNguoiDung(
             @RequestBody RegiserReq req
@@ -74,7 +74,7 @@ public class AdminNguoiDungController {
             @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
     })
     @SecurityApiResponses
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_UPDATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).USER_UPDATE.value())")
     @PutMapping("/{id}")
     public ResponseEntity<UserFullRes> suaNguoiDung(
             @PathVariable Long id,
@@ -94,7 +94,7 @@ public class AdminNguoiDungController {
             @ApiResponse(responseCode = "200", description = "Phân quyền thành công")
     })
     @SecurityApiResponses
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_UPDATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).USER_UPDATE.value())")
     @PutMapping("/{id}/quyen")
     public ResponseEntity<UserFullRes> phanQuyenNguoiDung(
             @PathVariable Long id,
@@ -114,7 +114,7 @@ public class AdminNguoiDungController {
             @ApiResponse(responseCode = "200", description = "Xóa thành công")
     })
     @SecurityApiResponses
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_DELETE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).USER_DELETE.value())")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> xoaNguoiDung(@PathVariable Long id) {
         nguoiDungService.xoaNguoiDung(id);

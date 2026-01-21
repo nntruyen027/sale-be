@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản lý loại sản phẩm dành cho Admin")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PTYPE_READ.value())")
+@PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PTYPE_READ.value())")
 public class AdminLoaiSpController {
 
     private final LoaiSpService loaiSpService;
@@ -46,7 +46,7 @@ public class AdminLoaiSpController {
     @Operation(summary = "Tạo mới loại sản phẩm")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PTYPE_CREATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PTYPE_CREATE.value())")
     @PostMapping
     public ResponseEntity<LoaiSpRes> taoLoaiSp(
             @RequestBody LoaiSpReq loaiSpReq) {
@@ -60,7 +60,7 @@ public class AdminLoaiSpController {
     @Operation(summary = "Cập nhật loại sản phẩm theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PTYPE_UPDATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PTYPE_UPDATE.value())")
     @PutMapping("/{id}")
     public ResponseEntity<LoaiSpRes> suaLoaiSp(
             @PathVariable Long id,
@@ -75,7 +75,7 @@ public class AdminLoaiSpController {
     @Operation(summary = "Xoá loại sản phẩm theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xoá thành công", content = @Content)
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PTYPE_DELETE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PTYPE_DELETE.value())")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> xoaLoaiSp(@PathVariable Long id) {
 

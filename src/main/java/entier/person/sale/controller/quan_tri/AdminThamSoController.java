@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị tham số dành cho quản trị viên")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_READ.value())")
+@PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PARAM_READ.value())")
 public class AdminThamSoController {
     private final ThamSoService thamSoService;
 
@@ -43,12 +43,13 @@ public class AdminThamSoController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_CREATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PARAM_CREATE.value())")
     public ResponseEntity<ThamSoRes> taoThamSo(@RequestBody ParamReq tinhReq) {
         return ResponseEntity.ok(thamSoService.taoThamSo(tinhReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_UPDATE.value())")    // 3) Cập nhật tham số
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PARAM_UPDATE.value())")
+    // 3) Cập nhật tham số
     @Operation(summary = "Cập nhật tham số theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
@@ -57,7 +58,8 @@ public class AdminThamSoController {
         return ResponseEntity.ok(thamSoService.suaThamSo(id, tinhReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_DELETE.value())")    // 4) Xoá tham số
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).PARAM_DELETE.value())")
+    // 4) Xoá tham số
     @Operation(summary = "Xoá tham số theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xoá thành công", content = @Content)

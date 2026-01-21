@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị vai trò dành cho quản trị viên")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_READ.value())")
+@PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).ROLE_READ.value())")
 public class AdminVaiTroController {
     private final VaiTroService roleService;
 
@@ -50,7 +50,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PostMapping("")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_CREATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).ROLE_CREATE.value())")
     public RoleRes taoVaiTro(@RequestBody RoleReq roleReq) {
         return roleService.taoVaiTro(roleReq);
     }
@@ -64,7 +64,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PutMapping("/{id}")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE.value())")
     public RoleRes suaVaiTro(@PathVariable Long id, @RequestBody RoleReq roleReq) {
         return roleService.suaVaiTro(id, roleReq);
     }
@@ -79,7 +79,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PutMapping("/{id}/quyen")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE.value())")
     public RoleRes phanQuyenChoVaiTro(@PathVariable Long id, @RequestBody PhanQuyenReq phanQuyenReq) {
         return roleService.phanQuyenChoVaiTro(id, phanQuyenReq.getDsMaQuyen());
     }
@@ -94,7 +94,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @DeleteMapping("/{id}")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_DELETE.value())")
+    @PreAuthorize("hasRole('SUPER_ADMIN') or hasAuthority(T(entier.person.sale.constant.QuyenCons).ROLE_DELETE.value())")
     public void xoaVaiTro(@PathVariable Long id) {
         roleService.xoaVaiTro(id);
     }
