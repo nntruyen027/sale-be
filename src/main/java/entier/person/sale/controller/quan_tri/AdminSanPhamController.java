@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản lý sản phẩm dành cho Admin")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ)")
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ.value())")
 public class AdminSanPhamController {
 
     private final SanPhamService loaiSpService;
@@ -48,12 +48,13 @@ public class AdminSanPhamController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_CREATE.value())")
     public ResponseEntity<SanPhamRes> taoSanPham(@RequestBody SanPhamReq loaiSpReq) {
         return ResponseEntity.ok(loaiSpService.taoSanPham(loaiSpReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_UPDATE)")    // 3) Cập nhật sản phẩm
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_UPDATE.value())")
+    // 3) Cập nhật sản phẩm
     @Operation(summary = "Cập nhật sản phẩm theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
@@ -62,7 +63,7 @@ public class AdminSanPhamController {
         return ResponseEntity.ok(loaiSpService.suaSanPham(id, loaiSpReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_DELETE)")    // 4) Xoá sản phẩm
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_DELETE.value())")    // 4) Xoá sản phẩm
     @Operation(summary = "Xoá sản phẩm theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xoá thành công", content = @Content)
@@ -77,12 +78,12 @@ public class AdminSanPhamController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping("/{spId}/bien-the")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ.value())")
     public ResponseEntity<BienTheRes> taoBienThe(@PathVariable Long spId, @RequestBody BienTheReq bienTheReq) {
         return ResponseEntity.ok(loaiSpService.themBienThe(spId, bienTheReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ)")    // 3) Cập nhật biến thể
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ.value())")    // 3) Cập nhật biến thể
     @Operation(summary = "Cập nhật biến thể theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
@@ -91,7 +92,7 @@ public class AdminSanPhamController {
         return ResponseEntity.ok(loaiSpService.suaBienthe(id, spId, bienTheReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ)")    // 4) Xoá biến thể
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PRODUCT_READ.value())")    // 4) Xoá biến thể
     @Operation(summary = "Xoá biến thể theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xoá thành công", content = @Content)

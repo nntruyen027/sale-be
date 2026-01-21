@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị quyền dành cho quản trị viên")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).QUYEN_READ) " +
-        "or @perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE) " +
-        "or @perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_CREATE)")
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).QUYEN_READ.value()) " +
+        "or @perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE.value()) " +
+        "or @perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_CREATE.value())")
 public class AdminPermissionController {
     private final QuyenService quyenService;
 

@@ -26,7 +26,7 @@ import java.io.IOException;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản lý danh mục tỉnh dành cho Admin")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_READ)")
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_READ.value())")
 public class AdminTinhController {
 
     private final TinhService tinhService;
@@ -50,12 +50,12 @@ public class AdminTinhController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE.value())")
     public ResponseEntity<TinhRes> taoTinh(@RequestBody TinhReq tinhReq) {
         return ResponseEntity.ok(tinhService.taoTinh(tinhReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_UPDATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_UPDATE.value())")
     // 3) Cập nhật tỉnh
     @Operation(summary = "Cập nhật tỉnh theo ID")
     @SecurityApiResponses
@@ -65,7 +65,7 @@ public class AdminTinhController {
         return ResponseEntity.ok(tinhService.suaTinh(id, tinhReq));
     }
 
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_DELETE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_DELETE.value())")
     // 4) Xoá tỉnh
     @Operation(summary = "Xoá tỉnh theo ID")
     @SecurityApiResponses
@@ -77,7 +77,7 @@ public class AdminTinhController {
     }
 
     // 5) Tải template Excel
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE.value())")
     @Operation(summary = "Tải xuống mẫu Excel import tỉnh")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tải xuống thành công")
@@ -96,7 +96,7 @@ public class AdminTinhController {
     }
 
     // 6) Import Excel
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE.value())")
     @Operation(summary = "Import danh sách tỉnh từ file Excel")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Import thành công", content = @Content)

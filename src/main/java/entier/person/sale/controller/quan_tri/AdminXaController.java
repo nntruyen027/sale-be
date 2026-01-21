@@ -39,7 +39,7 @@ import java.util.List;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản lý xã dành cho Admin")
-@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_READ)")
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_READ.value())")
 public class AdminXaController {
 
     private final XaService xaService;
@@ -74,7 +74,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo xã thành công")
     @PostMapping
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE.value())")
     public ResponseEntity<?> taoXa(@RequestBody XaReq xaReq) {
         return ResponseEntity.ok(xaService.taoXa(xaReq));
     }
@@ -89,7 +89,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Sửa xã thành công")
     @PutMapping("/{id}")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_UPDATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_UPDATE.value())")
     public ResponseEntity<?> suaXa(
             @PathVariable Long id,
             @RequestBody XaReq xaReq) {
@@ -107,7 +107,7 @@ public class AdminXaController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xóa xã thành công")
     @DeleteMapping("/{id}")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_DELETE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_DELETE.value())")
     public ResponseEntity<?> xoaXa(@PathVariable Long id) {
         xaService.xoaXa(id);
         return ResponseEntity.ok().build();
@@ -127,7 +127,7 @@ public class AdminXaController {
                     content = @Content(mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
     })
     @GetMapping("/importer/template")
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE.value())")
     public ResponseEntity<byte[]> downloadTemplate() throws IOException {
 
         ClassPathResource resource = new ClassPathResource("templates/mau_import_xa.xlsx");
@@ -180,7 +180,7 @@ public class AdminXaController {
             @ApiResponse(responseCode = "200", description = "Import thành công"),
             @ApiResponse(responseCode = "400", description = "File không hợp lệ", content = @Content)
     })
-    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE)")
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).XA_CREATE.value())")
     @PostMapping(value = "/importer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> importXa(@RequestParam("file") MultipartFile file) throws IOException {
         xaService.importXa(file);
