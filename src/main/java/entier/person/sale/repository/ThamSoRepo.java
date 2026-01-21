@@ -74,7 +74,7 @@ public class ThamSoRepo {
         dbFunctionExecutor.execute(
                 "fn_xoa_tham_so",
                 List.of(id),
-                Void.class
+                Boolean.class
         );
     }
 }
