@@ -3,7 +3,7 @@ DROP FUNCTION IF EXISTS auth.fn_xoa_nguoi_dung;
 CREATE OR REPLACE FUNCTION auth.fn_xoa_nguoi_dung(
     p_user_id BIGINT
 )
-    RETURNS void
+    RETURNS boolean
     LANGUAGE plpgsql
 AS
 $$
@@ -15,6 +15,8 @@ BEGIN
     DELETE
     FROM auth.users
     WHERE id = p_user_id;
+
+    return FOUND;
 
 END;
 $$;
