@@ -5,7 +5,7 @@ DROP FUNCTION IF EXISTS auth.fn_xoa_vai_tro;
 CREATE OR REPLACE FUNCTION auth.fn_xoa_vai_tro(
     p_id BIGINT -- ID của role cần xóa
 )
-    RETURNS VOID
+    RETURNS BOOLEAN
     LANGUAGE plpgsql
 AS
 $$
@@ -29,5 +29,7 @@ BEGIN
 
     -- Xóa role
     DELETE FROM auth.roles WHERE id = p_id;
+
+    return FOUND;
 END;
 $$;

@@ -68,7 +68,7 @@ public class RoleRepo {
         dbFunctionExecutor.execute(
                 "auth.fn_xoa_vai_tro",
                 List.of(id),
-                Void.class);
+                Boolean.class);
     }
 
     /**
