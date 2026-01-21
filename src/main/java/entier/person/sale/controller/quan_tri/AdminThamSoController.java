@@ -1,8 +1,6 @@
 package entier.person.sale.controller.quan_tri;
 
-import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
-import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.req.ParamReq;
 import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.ThamSoRes;
@@ -14,6 +12,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị tham số dành cho quản trị viên")
-@HasPermission(permission = QuyenCons.PARAM_READ)
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_READ)")
 public class AdminThamSoController {
     private final ThamSoService thamSoService;
 
@@ -44,13 +43,12 @@ public class AdminThamSoController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping
-    @HasPermission(permission = QuyenCons.TINH_CREATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_CREATE)")
     public ResponseEntity<ThamSoRes> taoThamSo(@RequestBody ParamReq tinhReq) {
         return ResponseEntity.ok(thamSoService.taoThamSo(tinhReq));
     }
 
-    @HasPermission(permission = QuyenCons.TINH_UPDATE)
-    // 3) Cập nhật tham số
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_UPDATE)")    // 3) Cập nhật tham số
     @Operation(summary = "Cập nhật tham số theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
@@ -59,8 +57,7 @@ public class AdminThamSoController {
         return ResponseEntity.ok(thamSoService.suaThamSo(id, tinhReq));
     }
 
-    @HasPermission(permission = QuyenCons.TINH_DELETE)
-    // 4) Xoá tham số
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).PARAM_DELETE)")    // 4) Xoá tham số
     @Operation(summary = "Xoá tham số theo ID")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Xoá thành công", content = @Content)

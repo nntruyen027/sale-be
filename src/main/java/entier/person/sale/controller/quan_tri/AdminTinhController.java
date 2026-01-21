@@ -1,8 +1,6 @@
 package entier.person.sale.controller.quan_tri;
 
-import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
-import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.req.TinhReq;
 import entier.person.sale.dto.res.PageResponse;
 import entier.person.sale.dto.res.TinhRes;
@@ -17,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +26,7 @@ import java.io.IOException;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản lý danh mục tỉnh dành cho Admin")
-@HasPermission(permission = QuyenCons.TINH_READ)
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_READ)")
 public class AdminTinhController {
 
     private final TinhService tinhService;
@@ -51,12 +50,12 @@ public class AdminTinhController {
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tạo thành công")
     @PostMapping
-    @HasPermission(permission = QuyenCons.TINH_CREATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
     public ResponseEntity<TinhRes> taoTinh(@RequestBody TinhReq tinhReq) {
         return ResponseEntity.ok(tinhService.taoTinh(tinhReq));
     }
 
-    @HasPermission(permission = QuyenCons.TINH_UPDATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_UPDATE)")
     // 3) Cập nhật tỉnh
     @Operation(summary = "Cập nhật tỉnh theo ID")
     @SecurityApiResponses
@@ -66,7 +65,7 @@ public class AdminTinhController {
         return ResponseEntity.ok(tinhService.suaTinh(id, tinhReq));
     }
 
-    @HasPermission(permission = QuyenCons.TINH_DELETE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_DELETE)")
     // 4) Xoá tỉnh
     @Operation(summary = "Xoá tỉnh theo ID")
     @SecurityApiResponses
@@ -78,7 +77,7 @@ public class AdminTinhController {
     }
 
     // 5) Tải template Excel
-    @HasPermission(permission = QuyenCons.TINH_CREATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
     @Operation(summary = "Tải xuống mẫu Excel import tỉnh")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Tải xuống thành công")
@@ -97,7 +96,7 @@ public class AdminTinhController {
     }
 
     // 6) Import Excel
-    @HasPermission(permission = QuyenCons.TINH_CREATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).TINH_CREATE)")
     @Operation(summary = "Import danh sách tỉnh từ file Excel")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Import thành công", content = @Content)

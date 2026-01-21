@@ -1,8 +1,6 @@
 package entier.person.sale.controller.quan_tri;
 
-import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
-import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.req.PhanQuyenReq;
 import entier.person.sale.dto.req.RegiserReq;
 import entier.person.sale.dto.res.PageResponse;
@@ -13,92 +11,113 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/quan-tri/nguoi-dung")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
-@Tag(name = "Quản trị người dùng dành cho quản trị viên")
-@HasPermission(permission = QuyenCons.USER_READ)
+@Tag(name = "Quản trị người dùng (Admin)")
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_READ)")
 public class AdminNguoiDungController {
+
     private final NguoiDungService nguoiDungService;
 
-
+    // ====================== LẤY DANH SÁCH ======================
     @Operation(
             summary = "Lấy danh sách người dùng",
-            description = "API trả về danh sách người dùng theo phân trang và tìm kiếm theo tên."
+            description = "Trả về danh sách người dùng theo phân trang và tìm kiếm"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công"),
+            @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
     })
     @SecurityApiResponses
-    @GetMapping("")
-    public PageResponse<UserFullRes> layDsNguoiDung(
+    @GetMapping
+    public ResponseEntity<PageResponse<UserFullRes>> layDsNguoiDung(
             @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
-        return nguoiDungService.layTatCaNguoiDung(search, page, limit);
+        return ResponseEntity.ok(
+                nguoiDungService.layTatCaNguoiDung(search, page, limit)
+        );
     }
 
+    // ====================== TẠO NGƯỜI DÙNG ======================
     @Operation(
             summary = "Tạo người dùng",
-            description = "API tạo người dùng."
+            description = "Tạo mới một người dùng"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tạo thành công"),
+            @ApiResponse(responseCode = "200", description = "Tạo thành công")
     })
     @SecurityApiResponses
-    @PostMapping("")
-    @HasPermission(permission = QuyenCons.USER_CREATE)
-    public UserFullRes taoNguoiDung(@RequestBody RegiserReq nguoiDungReq) {
-
-        return nguoiDungService.taoNguoiDung(nguoiDungReq);
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_CREATE)")
+    @PostMapping
+    public ResponseEntity<UserFullRes> taoNguoiDung(
+            @RequestBody RegiserReq req
+    ) {
+        return ResponseEntity.ok(
+                nguoiDungService.taoNguoiDung(req)
+        );
     }
 
+    // ====================== CẬP NHẬT NGƯỜI DÙNG ======================
     @Operation(
-            summary = "Sửa người dùng",
-            description = "API sửa người dùng."
+            summary = "Cập nhật người dùng",
+            description = "Cập nhật thông tin người dùng theo ID"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Sửa thành công"),
+            @ApiResponse(responseCode = "200", description = "Cập nhật thành công")
     })
     @SecurityApiResponses
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_UPDATE)")
     @PutMapping("/{id}")
-    @HasPermission(permission = QuyenCons.USER_UPDATE)
-    public UserFullRes suaNguoiDung(@PathVariable Long id, @RequestBody RegiserReq nguoiDungReq) {
-        return nguoiDungService.suaNguoiDung(id, nguoiDungReq);
+    public ResponseEntity<UserFullRes> suaNguoiDung(
+            @PathVariable Long id,
+            @RequestBody RegiserReq req
+    ) {
+        return ResponseEntity.ok(
+                nguoiDungService.suaNguoiDung(id, req)
+        );
     }
 
-
+    // ====================== PHÂN QUYỀN ======================
     @Operation(
-            summary = "Phần quyền cho người dùng",
-            description = "API phân quyền cho người dùng."
+            summary = "Phân quyền cho người dùng",
+            description = "Gán danh sách quyền cho người dùng"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Phân quyền thành công"),
+            @ApiResponse(responseCode = "200", description = "Phân quyền thành công")
     })
     @SecurityApiResponses
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_UPDATE)")
     @PutMapping("/{id}/quyen")
-    @HasPermission(permission = QuyenCons.USER_UPDATE)
-    public UserFullRes phanVaiTroChoNguoiDung(@PathVariable Long id, @RequestBody PhanQuyenReq phanQuyenReq) {
-        return nguoiDungService.phanVaiTroChoNguoiDung(id, phanQuyenReq.getDsMaQuyen());
+    public ResponseEntity<UserFullRes> phanQuyenNguoiDung(
+            @PathVariable Long id,
+            @RequestBody PhanQuyenReq req
+    ) {
+        return ResponseEntity.ok(
+                nguoiDungService.phanVaiTroChoNguoiDung(id, req.getDsMaQuyen())
+        );
     }
 
-
+    // ====================== XOÁ NGƯỜI DÙNG ======================
     @Operation(
             summary = "Xóa người dùng",
-            description = "API xóa người dùng."
+            description = "Xóa người dùng theo ID"
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Xóa thành công"),
+            @ApiResponse(responseCode = "200", description = "Xóa thành công")
     })
     @SecurityApiResponses
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).USER_DELETE)")
     @DeleteMapping("/{id}")
-    @HasPermission(permission = QuyenCons.USER_DELETE)
-    public void xoaNguoiDung(@PathVariable Long id) {
+    public ResponseEntity<Void> xoaNguoiDung(@PathVariable Long id) {
         nguoiDungService.xoaNguoiDung(id);
+        return ResponseEntity.ok().build();
     }
 }

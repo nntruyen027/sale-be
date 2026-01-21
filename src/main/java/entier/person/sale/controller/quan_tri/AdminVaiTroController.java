@@ -1,8 +1,6 @@
 package entier.person.sale.controller.quan_tri;
 
-import entier.person.sale.config.HasPermission;
 import entier.person.sale.config.SecurityApiResponses;
-import entier.person.sale.constant.QuyenCons;
 import entier.person.sale.dto.req.PhanQuyenReq;
 import entier.person.sale.dto.req.RoleReq;
 import entier.person.sale.dto.res.PageResponse;
@@ -14,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @SecurityRequirement(name = "BearerAuth")
 @Tag(name = "Quản trị vai trò dành cho quản trị viên")
-@HasPermission(permission = QuyenCons.ROLE_READ)
+@PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_READ)")
 public class AdminVaiTroController {
     private final VaiTroService roleService;
 
@@ -51,7 +50,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PostMapping("")
-    @HasPermission(permission = QuyenCons.ROLE_CREATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_CREATE)")
     public RoleRes taoVaiTro(@RequestBody RoleReq roleReq) {
         return roleService.taoVaiTro(roleReq);
     }
@@ -65,7 +64,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PutMapping("/{id}")
-    @HasPermission(permission = QuyenCons.ROLE_UPDATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE)")
     public RoleRes suaVaiTro(@PathVariable Long id, @RequestBody RoleReq roleReq) {
         return roleService.suaVaiTro(id, roleReq);
     }
@@ -80,7 +79,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @PutMapping("/{id}/quyen")
-    @HasPermission(permission = QuyenCons.ROLE_UPDATE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_UPDATE)")
     public RoleRes phanQuyenChoVaiTro(@PathVariable Long id, @RequestBody PhanQuyenReq phanQuyenReq) {
         return roleService.phanQuyenChoVaiTro(id, phanQuyenReq.getDsMaQuyen());
     }
@@ -95,7 +94,7 @@ public class AdminVaiTroController {
     })
     @SecurityApiResponses
     @DeleteMapping("/{id}")
-    @HasPermission(permission = QuyenCons.ROLE_DELETE)
+    @PreAuthorize("@perm.has(T(entier.person.sale.constant.QuyenCons).ROLE_DELETE)")
     public void xoaVaiTro(@PathVariable Long id) {
         roleService.xoaVaiTro(id);
     }
