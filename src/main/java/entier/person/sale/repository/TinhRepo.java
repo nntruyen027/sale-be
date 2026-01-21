@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -36,17 +37,24 @@ public class TinhRepo {
 
     @Transactional
     public TinhRes taoTinh(TinhReq tinh) {
+        List<Object> params = new ArrayList<>();
+        params.add(tinh.getTen());
+        params.add(tinh.getGhiChu());
         return dbFunctionExecutor.execute(
                 "dm_chung.fn_tao_tinh",
-                List.of(tinh.getTen(), tinh.getGhiChu()), TinhRes.class);
+                params, TinhRes.class);
 
     }
 
     @Transactional
     public TinhRes suaTinh(Long id, TinhReq tinh) {
+        List<Object> params = new ArrayList<>();
+        params.add(id);
+        params.add(tinh.getTen());
+        params.add(tinh.getGhiChu());
         return dbFunctionExecutor.execute(
                 "dm_chung.fn_sua_tinh",
-                List.of(id, tinh.getTen(), tinh.getGhiChu()), TinhRes.class);
+                params, TinhRes.class);
 
     }
 

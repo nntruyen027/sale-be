@@ -49,17 +49,26 @@ public class XaRepo {
 
     @Transactional
     public XaRes taoXa(XaReq xa) {
+        List<Object> params = new ArrayList<>();
+        params.add(xa.getTen());
+        params.add(xa.getGhiChu());
+        params.add(xa.getTinhId());
         return dbFunctionExecutor.execute(
                 "dm_chung.fn_tao_xa",
-                List.of(xa.getTen(), xa.getGhiChu(), xa.getTinhId()),
+                params,
                 XaRes.class);
     }
 
     @Transactional
     public XaRes suaXa(Long id, XaReq xa) {
+        List<Object> params = new ArrayList<>();
+        params.add(id);
+        params.add(xa.getTen());
+        params.add(xa.getGhiChu());
+        params.add(xa.getTinhId());
         return dbFunctionExecutor.execute(
                 "dm_chung.fn_sua_xa",
-                List.of(id, xa.getTen(), xa.getGhiChu(), xa.getTinhId()),
+                params,
                 XaRes.class);
 
     }
