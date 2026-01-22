@@ -3,9 +3,8 @@ package entier.person.sale.dto.res;
 import lombok.Data;
 
 @Data
-public class LoaiSpRes {
+public class LoaiSpParRes {
     Long id;
     String ten;
     String hinhAnh;
-    LoaiSpParRes parent;
 }
