@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bai-viet")
+@RequestMapping("/cong-khai/bai-viet")
 @AllArgsConstructor
 @Tag(name = "Bài viết công khai")
 public class BaiVietController {
