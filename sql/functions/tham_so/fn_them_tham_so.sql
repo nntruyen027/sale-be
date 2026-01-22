@@ -12,6 +12,10 @@ declare
     v_new_id bigint;
     v_data   jsonb;
 begin
+    if exists(select 1 from tham_so where khoa = p_khoa) then
+        raise 'Tham số với khóa % đã tồn tại', p_khoa;
+    end if;
+
     insert into tham_so(khoa, "kieuDuLieu", "giaTri")
     values (p_khoa, p_kieu_du_lieu, p_gia_tri)
     returning id into v_new_id;

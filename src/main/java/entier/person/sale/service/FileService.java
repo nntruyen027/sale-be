@@ -25,6 +25,7 @@ import java.util.UUID;
 public class FileService {
 
     private final FileRepo fileRepo;
+    private final AuthService authService;
 
     @Value("${file.upload-dir:uploads}")
     private String uploadDir;
@@ -49,6 +50,7 @@ public class FileService {
                 .url(publicUrl + "/files/public/" + storedName) // public URL
                 .contentType(file.getContentType())
                 .size(file.getSize())
+                .userId(authService.getCurrentUser().getId())
                 .build();
 
         return fileRepo.luuFile(entity);
