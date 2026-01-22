@@ -7,7 +7,15 @@ create function product.fn_xoa_bien_the(
     returns boolean
 as
 $$
+declare
+    v_url_image varchar;
 begin
+    select "hinhAnh" into v_url_image from product.bien_the where id = pId;
+
+    if not (v_url_image is null or v_url_image = '') then
+        delete from files where url = v_url_image;
+    end if;
+
     if not exists(select 1
                   from product.bien_the
                   where id = pId

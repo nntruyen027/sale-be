@@ -6,7 +6,15 @@ create function product.fn_xoa_loai(
     returns boolean
 as
 $$
+declare
+    v_url_image varchar;
 begin
+    select "hinhAnh" into v_url_image from product.loai where id = p_id;
+
+    if not (v_url_image is null or v_url_image = '') then
+        delete from files where url = v_url_image;
+    end if;
+
     delete
     from product.loai
     where id = p_id;

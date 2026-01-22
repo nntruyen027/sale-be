@@ -58,7 +58,18 @@ public enum QuyenCons {
     PTYPE_READ("ptype:read"),
     PTYPE_CREATE("ptype:create"),
     PTYPE_UPDATE("ptype:update"),
-    PTYPE_DELETE("ptype:delete");
+    PTYPE_DELETE("ptype:delete"),
+
+    BTYPE_READ("btype:read"),
+    BTYPE_CREATE("btype:create"),
+    BTYPE_UPDATE("btype:update"),
+    BTYPE_DELETE("btype:delete"),
+
+
+    BLOG_READ("blog:read"),
+    BLOG_CREATE("blog:create"),
+    BLOG_UPDATE("blog:update"),
+    BLOG_DELETE("blog:delete");
 
 
     private final String permission;
