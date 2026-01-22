@@ -43,6 +43,16 @@ public class AdminSanPhamController {
         return ResponseEntity.ok(loaiSpService.layDsSanPham(loaiSp, search, page, size));
     }
 
+    @Operation(summary = "Lấy sản phẩm")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Lấy thành công")
+    @GetMapping("/{id}")
+    public ResponseEntity<SanPhamRes> laySanPham(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(loaiSpService.laySanPham(id));
+    }
+
     // 2) Tạo mới sản phẩm
     @Operation(summary = "Tạo mới sản phẩm")
     @SecurityApiResponses

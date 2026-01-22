@@ -41,4 +41,8 @@ public class SanPhamService {
     public void xoaBienThe(Long id, Long spId) {
         sanPhamRepo.xoaBienThe(id, spId);
     }
+
+    public SanPhamRes laySanPham(Long id) {
+        return sanPhamRepo.laySanPham(id);
+    }
 }

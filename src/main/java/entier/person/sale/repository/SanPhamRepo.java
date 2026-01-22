@@ -112,4 +112,12 @@ public class SanPhamRepo {
                 Boolean.class
         );
     }
+
+    public SanPhamRes laySanPham(Long id) {
+        return dbFunctionExecutor.execute(
+                "product.fn_lay_san_pham",
+                List.of(id),
+                SanPhamRes.class
+        );
+    }
 }
