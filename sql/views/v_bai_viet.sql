@@ -25,32 +25,28 @@ SELECT b.id,
                 )
            END AS "chuyenMuc",
 
-    /* ===== HASHTAG ===== */
+    /* ===== HASHTAGS ===== */
        COALESCE(
                        jsonb_agg(
-                       DISTINCT jsonb_build_object(
+                       jsonb_build_object(
                                'id', h.id,
                                'ten', h.ten,
                                'slug', h.slug
-                                )
+                       )
                                 ) FILTER (WHERE h.id IS NOT NULL),
                        '[]'::jsonb
        )       AS hashtags
 
 FROM blog.bai_viet b
-
          LEFT JOIN blog.chuyen_muc cm
                    ON cm.id = b."chuyenMucId"
-
-         LEFT JOIN blog.chuyen_muc pcm
-                   ON pcm.id = cm."parentId"
-
          LEFT JOIN blog.bai_viet_hashtag bvh
                    ON b.id = bvh."baiVietId"
-
          LEFT JOIN blog.hashtag h
                    ON h.id = bvh."hashtagId"
 
 GROUP BY b.id,
          cm.id,
-         pcm.id;
+         cm.ten,
+         cm.slug,
+         cm."parentId";

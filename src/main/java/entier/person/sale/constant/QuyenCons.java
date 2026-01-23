@@ -65,6 +65,11 @@ public enum QuyenCons {
     BTYPE_UPDATE("btype:update"),
     BTYPE_DELETE("btype:delete"),
 
+    CATALOG_READ("catalog:read"),
+    CATALOG_CREATE("catalog:create"),
+    CATALOG_UPDATE("catalog:update"),
+    CATALOG_DELETE("catalog:delete"),
+
 
     BLOG_READ("blog:read"),
     BLOG_CREATE("blog:create"),

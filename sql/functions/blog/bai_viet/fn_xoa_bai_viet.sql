@@ -3,7 +3,7 @@ DROP FUNCTION IF EXISTS blog.fn_xoa_bai_viet;
 CREATE FUNCTION blog.fn_xoa_bai_viet(
     p_id BIGINT
 )
-    RETURNS BIGINT
+    RETURNS BOOLEAN
     LANGUAGE plpgsql
 AS
 $$
@@ -16,6 +16,6 @@ BEGIN
         RAISE EXCEPTION 'Không tìm thấy bài viết id=%', p_id;
     END IF;
 
-    RETURN p_id;
+    RETURN FOUND;
 END;
 $$;

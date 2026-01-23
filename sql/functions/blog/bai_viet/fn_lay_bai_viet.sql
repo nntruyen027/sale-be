@@ -10,7 +10,7 @@ $$
 DECLARE
     v_result JSONB;
 BEGIN
-    select (r)
+    select to_jsonb(r)
     into v_result
     from (select *
           from blog.v_bai_viet
@@ -23,3 +23,6 @@ BEGIN
     RETURN v_result;
 END;
 $$;
+
+
+select blog.fn_lay_bai_viet(1);

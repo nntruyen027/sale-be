@@ -52,3 +52,6 @@ END;
 $$;
 
 
+select blog.fn_them_bai_viet(
+               'string', 'string46', 'string', 'string', 7, 'string', 'DRAFT', 1
+       );
