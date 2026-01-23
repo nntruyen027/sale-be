@@ -107,15 +107,15 @@ public class BaiVietRepo {
 
     /* ================= THÊM ================= */
 
-    public BaiVietRes themBaiViet(BaiVietReq req, Long nguoiDang) {
+    public BaiVietRes themBaiViet(BaiVietReq baiVietReq, Long nguoiDang) {
         List<Object> params = new ArrayList<>();
-        params.add(req.getTieuDe());
-        params.add(req.getSlug());
-        params.add(req.getTomTat());
-        params.add(req.getNoiDung());
-        params.add(req.getChuyenMucId());
-        params.add(req.getTacGia());
-        params.add(req.getTrangThai());
+        params.add(baiVietReq.getTieuDe());
+        params.add(baiVietReq.getSlug());
+        params.add(baiVietReq.getTomTat());
+        params.add(baiVietReq.getNoiDung());
+        params.add(baiVietReq.getChuyenMucId());
+        params.add(baiVietReq.getTacGia());
+        params.add(baiVietReq.getTrangThai());
         params.add(nguoiDang);
 
         return dbFunctionExecutor.execute(
@@ -125,16 +125,16 @@ public class BaiVietRepo {
         );
     }
 
-    public BaiVietRes suaBaiViet(Long id, BaiVietReq req, Long nguoiDang) {
+    public BaiVietRes suaBaiViet(Long id, BaiVietReq baiVietReq, Long nguoiDang) {
         List<Object> params = new ArrayList<>();
         params.add(id);
-        params.add(req.getTieuDe());
-        params.add(req.getSlug());
-        params.add(req.getTomTat());
-        params.add(req.getNoiDung());
-        params.add(req.getChuyenMucId());
-        params.add(req.getTacGia());
-        params.add(req.getTrangThai());
+        params.add(baiVietReq.getTieuDe());
+        params.add(baiVietReq.getSlug());
+        params.add(baiVietReq.getTomTat());
+        params.add(baiVietReq.getNoiDung());
+        params.add(baiVietReq.getChuyenMucId());
+        params.add(baiVietReq.getTacGia());
+        params.add(baiVietReq.getTrangThai());
         params.add(nguoiDang);
 
         return dbFunctionExecutor.execute(
