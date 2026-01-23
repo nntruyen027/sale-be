@@ -61,5 +61,6 @@ public class ChuyenMucRepo {
                 List.of(id),
                 Boolean.class
         );
+        
     }
 }
