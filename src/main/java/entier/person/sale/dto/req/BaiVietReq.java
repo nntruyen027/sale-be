@@ -2,8 +2,6 @@ package entier.person.sale.dto.req;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class BaiVietReq {
     private String tieuDe;
@@ -13,9 +11,6 @@ public class BaiVietReq {
     private String trangThai;
     private Long luotXem;
     private String tacGia;
-
-    private LocalDateTime ngayTao;
-
-
+    
     private Long chuyenMucId;
 }

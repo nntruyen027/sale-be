@@ -44,9 +44,11 @@ BEGIN
 
     select to_jsonb(r)
     into v_data
-    from (select * from blog.v_bai_viet where id = v_bai_viet_id) r;
+    from (select * from blog.v_bai_viet where id = v_bai_viet_id limit 1) r;
 
     return v_data;
 
 END;
 $$;
+
+
