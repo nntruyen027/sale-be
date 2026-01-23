@@ -1,6 +1,6 @@
 drop function if exists blog.fn_lay_ds_chuyen_muc;
 
-create function product.fn_lay_ds_chuyen_muc(
+create function blog.fn_lay_ds_chuyen_muc(
     p_search varchar,
     p_page int default 1,
     p_limit int default 10

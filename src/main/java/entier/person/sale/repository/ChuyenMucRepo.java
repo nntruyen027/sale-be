@@ -22,7 +22,7 @@ public class ChuyenMucRepo {
         params.add(page);
         params.add(size);
         return dbFunctionExecutor.execute(
-                "product.fn_lay_ds_chuyen_muc",
+                "blog.fn_lay_ds_chuyen_muc",
                 params,
                 new TypeReference<PageResponse<ChuyenMucRes>>() {
 
@@ -36,7 +36,7 @@ public class ChuyenMucRepo {
         params.add(chuyeMucReq.getParentId());
         params.add(chuyeMucReq.getSlug());
         return dbFunctionExecutor.execute(
-                "product.fn_them_chuyen_muc",
+                "blog.fn_them_chuyen_muc",
                 params,
                 ChuyenMucRes.class
         );
@@ -49,7 +49,7 @@ public class ChuyenMucRepo {
         params.add(chuyeMucReq.getParentId());
         params.add(chuyeMucReq.getSlug());
         return dbFunctionExecutor.execute(
-                "product.fn_sua_chuyen_muc",
+                "blog.fn_sua_chuyen_muc",
                 params,
                 ChuyenMucRes.class
         );
@@ -57,7 +57,7 @@ public class ChuyenMucRepo {
 
     public void xoaChuyenMuc(Long id) {
         dbFunctionExecutor.execute(
-                "product.fn_xoa_chuyen_muc",
+                "blog.fn_xoa_chuyen_muc",
                 List.of(id),
                 Boolean.class
         );
