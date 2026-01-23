@@ -107,7 +107,7 @@ public class BaiVietRepo {
 
     /* ================= THÊM ================= */
 
-    public BaiVietRes themBaiViet(BaiVietReq req) {
+    public BaiVietRes themBaiViet(BaiVietReq req, Long nguoiDang) {
         List<Object> params = new ArrayList<>();
         params.add(req.getTieuDe());
         params.add(req.getSlug());
@@ -116,7 +116,7 @@ public class BaiVietRepo {
         params.add(req.getChuyenMucId());
         params.add(req.getTacGia());
         params.add(req.getTrangThai());
-        params.add(req.getNguoiDang());
+        params.add(nguoiDang);
 
         return dbFunctionExecutor.execute(
                 "blog.fn_them_bai_viet",
@@ -125,7 +125,7 @@ public class BaiVietRepo {
         );
     }
 
-    public BaiVietRes suaBaiViet(Long id, BaiVietReq req) {
+    public BaiVietRes suaBaiViet(Long id, BaiVietReq req, Long nguoiDang) {
         List<Object> params = new ArrayList<>();
         params.add(id);
         params.add(req.getTieuDe());
@@ -135,7 +135,7 @@ public class BaiVietRepo {
         params.add(req.getChuyenMucId());
         params.add(req.getTacGia());
         params.add(req.getTrangThai());
-        params.add(req.getNguoiDang());
+        params.add(nguoiDang);
 
         return dbFunctionExecutor.execute(
                 "blog.fn_sua_bai_viet",

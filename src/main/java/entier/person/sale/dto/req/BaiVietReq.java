@@ -16,7 +16,6 @@ public class BaiVietReq {
 
     private LocalDateTime ngayTao;
 
-    private Long nguoiDang;
 
     private Long chuyenMucId;
 }

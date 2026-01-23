@@ -15,6 +15,8 @@ import java.util.List;
 @Service
 public class BaiVietService {
     private final BaiVietRepo baiVietRepo;
+    private final AuthService authService;
+
 
     public PageResponse<BaiVietRes> layDsBaiViet(
             Long chuyenMucId,
@@ -62,7 +64,7 @@ public class BaiVietService {
     public BaiVietRes themBaiViet(BaiVietReq req) {
 
         // 1️⃣ Thêm bài viết
-        BaiVietRes baiViet = baiVietRepo.themBaiViet(req);
+        BaiVietRes baiViet = baiVietRepo.themBaiViet(req, authService.getCurrentUser().getId());
 
         // 2️⃣ Tách hashtag từ nội dung
         List<String> hashtags = HashtagUtil.extractFromContent(req.getNoiDung());
@@ -77,7 +79,7 @@ public class BaiVietService {
 
 
     public BaiVietRes suaBaiViet(Long id, BaiVietReq req) {
-        BaiVietRes baiViet = baiVietRepo.suaBaiViet(id, req);
+        BaiVietRes baiViet = baiVietRepo.suaBaiViet(id, req, authService.getCurrentUser().getId());
 
         // 2️⃣ Tách lại hashtag từ nội dung mới
         List<String> hashtags = HashtagUtil.extractFromContent(req.getNoiDung());

@@ -18,6 +18,10 @@ DECLARE
     v_bai_viet_id BIGINT;
     v_data        jsonb;
 BEGIN
+    if exists(select * from blog.bai_viet where lower(slug) = lower(p_slug)) then
+        raise 'Slug % đã tồn tại', p_slug;
+    end if;
+
     -- 1. Thêm bài viết
     INSERT INTO blog.bai_viet ("tieuDe",
                                slug,

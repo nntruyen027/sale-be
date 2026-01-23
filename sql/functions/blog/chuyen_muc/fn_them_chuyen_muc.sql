@@ -20,6 +20,10 @@ begin
 
     return v_data;
 
+EXCEPTION
+    WHEN unique_violation THEN
+        RAISE EXCEPTION 'Slug "% " đã tồn tại', p_slug
+            USING ERRCODE = '23505';
 end;
 
 $$ language plpgsql;

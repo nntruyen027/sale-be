@@ -21,7 +21,10 @@ begin
     select to_jsonb(l) into v_data from blog.v_chuyen_muc l where id = p_id limit 1;
 
     return v_data;
-
+EXCEPTION
+    WHEN unique_violation THEN
+        RAISE EXCEPTION 'Slug "% " đã tồn tại', p_slug
+            USING ERRCODE = '23505';
 end;
 
 $$ language plpgsql;
