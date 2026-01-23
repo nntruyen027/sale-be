@@ -1,3 +1,5 @@
+drop function if exists blog.fn_lay_ds_bai_viet_theo_hashtag;
+
 CREATE FUNCTION blog.fn_lay_ds_bai_viet_theo_hashtag(
     p_slug VARCHAR,
     p_page INT DEFAULT 1,
@@ -27,15 +29,16 @@ BEGIN
     /*
      * 2. Lấy dữ liệu phân trang
      */
-    SELECT jsonb_agg(to_jsonb(v))
+    SELECT jsonb_agg(to_jsonb(r))
     into v_data
-    FROM blog.v_bai_viet v
-             JOIN blog.bai_viet_hashtag bvh ON v.id = bvh."baiVietId"
-             JOIN blog.hashtag h ON h.id = bvh."hashtagId"
-    WHERE h.slug = p_slug
-      AND v."trangThai" = 'PUBLIC'
-    ORDER BY v."ngayTao" DESC
-    LIMIT p_limit offset v_offset;
+    FROM (SELECT *
+          from blog.v_bai_viet v
+                   JOIN blog.bai_viet_hashtag bvh ON v.id = bvh."baiVietId"
+                   JOIN blog.hashtag h ON h.id = bvh."hashtagId"
+          WHERE h.slug = p_slug
+            AND v."trangThai" = 'PUBLIC'
+          ORDER BY v."ngayTao" DESC
+          LIMIT p_limit offset v_offset) r;
 
 
     /*

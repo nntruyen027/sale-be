@@ -13,18 +13,18 @@ public class ChuyenMucService {
     private final ChuyenMucRepo chuyenMucRepo;
 
     public PageResponse<ChuyenMucRes> layDsChuyenMuc(String search, int page, int size) {
-        return null;
+        return chuyenMucRepo.layDsChuyenMuc(search, page, size);
     }
 
     public ChuyenMucRes taoChuyenMuc(ChuyenMucReq chuyenMucReq) {
-        return null;
+        return chuyenMucRepo.taoChuyenMuc(chuyenMucReq);
     }
 
     public ChuyenMucRes suaChuyenMuc(Long id, ChuyenMucReq chuyenMucReq) {
-        return null;
+        return chuyenMucRepo.suaChuyenMuc(id, chuyenMucReq);
     }
 
     public void xoaChuyenMuc(Long id) {
-
+        chuyenMucRepo.xoaChuyenMuc(id);
     }
 }
