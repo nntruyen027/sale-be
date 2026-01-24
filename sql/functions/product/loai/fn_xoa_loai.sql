@@ -8,11 +8,11 @@ as
 $$
 declare
     v_url_image varchar;
-    v_loai      varchar;
+    v_loai      varchar := '';
 begin
     select ten into v_loai from product.loai where id = p_id;
 
-    if v_loai is null or v_loai == '' then
+    if v_loai is null or v_loai = '' then
         raise 'Không tồn tại loại sản phẩm có id %.', p_id;
     end if;
 

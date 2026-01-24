@@ -2,14 +2,8 @@ package entier.person.sale.controller.cong_khai;
 
 
 import entier.person.sale.config.SecurityApiResponses;
-import entier.person.sale.dto.res.LoaiSpRes;
-import entier.person.sale.dto.res.PageResponse;
-import entier.person.sale.dto.res.TinhRes;
-import entier.person.sale.dto.res.XaRes;
-import entier.person.sale.service.LoaiSpService;
-import entier.person.sale.service.ThamSoService;
-import entier.person.sale.service.TinhService;
-import entier.person.sale.service.XaService;
+import entier.person.sale.dto.res.*;
+import entier.person.sale.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,6 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cong-khai")
@@ -30,6 +26,7 @@ public class PublicController {
     private final TinhService tinhService;
     private final ThamSoService thamSoService;
     private final LoaiSpService loaiSpService;
+    private final HeThongService heThongService;
 
 
     // 1) Lấy danh sách tỉnh
@@ -86,6 +83,15 @@ public class PublicController {
             @RequestParam(defaultValue = "10") int size) {
 
         return ResponseEntity.ok(loaiSpService.layDsLoaiSp(search, page, size));
+    }
+
+    @Operation(summary = "Lấy danh sách banner")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
+    @GetMapping("/banner")
+    public ResponseEntity<List<BannerRes>> layDsBanner(
+    ) {
+        return ResponseEntity.ok(heThongService.layDsBanner());
     }
 
 }
