@@ -64,7 +64,7 @@ public class SanPhamRepo {
 
     public void xoaSanPham(Long id) {
         dbFunctionExecutor.execute(
-                "product.fn_sua_san_pham",
+                "product.fn_xoa_san_pham",
                 List.of(id),
                 Boolean.class
         );
