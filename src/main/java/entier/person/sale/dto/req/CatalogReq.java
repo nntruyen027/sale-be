@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class CatalogReq {
     String tieuDe;
+    String anhBia;
     String url;
 }

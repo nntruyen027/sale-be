@@ -33,6 +33,7 @@ public class CatalogRepo {
     public CatalogRes taoCatalog(CatalogReq chuyeMucReq) {
         List<Object> params = new ArrayList<>();
         params.add(chuyeMucReq.getTieuDe());
+        params.add(chuyeMucReq.getAnhBia());
         params.add(chuyeMucReq.getUrl());
         return dbFunctionExecutor.execute(
                 "blog.fn_them_catalog",
@@ -45,6 +46,7 @@ public class CatalogRepo {
         List<Object> params = new ArrayList<>();
         params.add(id);
         params.add(chuyeMucReq.getTieuDe());
+        params.add(chuyeMucReq.getAnhBia());
         params.add(chuyeMucReq.getUrl());
         return dbFunctionExecutor.execute(
                 "blog.fn_sua_catalog",

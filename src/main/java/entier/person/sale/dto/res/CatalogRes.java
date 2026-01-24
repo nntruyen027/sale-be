@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 public class CatalogRes {
     Long id;
     String tieuDe;
+    String anhBia;
     String url;
     Timestamp ngayTao;
 }
