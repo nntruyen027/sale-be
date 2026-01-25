@@ -7,6 +7,7 @@ import entier.person.sale.util.DbFunctionExecutor;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class HeThongRepo {
     }
 
     public BannerRes taoBanner(BannerReq bannerReq) {
-        List<Object> params = List.of();
+        List<Object> params = new ArrayList<>();
         params.add(bannerReq.getHinhAnh());
         params.add(bannerReq.getUrl());
         params.add(bannerReq.getThuTu());
@@ -37,7 +38,7 @@ public class HeThongRepo {
     }
 
     public BannerRes suaBanner(Long id, BannerReq bannerReq) {
-        List<Object> params = List.of();
+        List<Object> params = new ArrayList<>();
         params.add(id);
         params.add(bannerReq.getHinhAnh());
         params.add(bannerReq.getUrl());

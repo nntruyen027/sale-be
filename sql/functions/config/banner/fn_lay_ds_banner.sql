@@ -16,6 +16,6 @@ begin
     from (select *
           from config.banner l
           order by "thuTu") r;
-    return v_data;
+    return coalesce(v_data, '[]'::jsonb);
 end;
 $$ language plpgsql;
