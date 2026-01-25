@@ -31,7 +31,7 @@ public class BaiVietController {
             @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(
-                baiVietService.layDsBaiViet(chuyenMucId, "PUBLISHED", search, page, size)
+                baiVietService.layDsBaiViet(chuyenMucId, "PUBLIC", search, page, size)
         );
     }
 
