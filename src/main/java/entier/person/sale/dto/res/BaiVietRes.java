@@ -12,7 +12,7 @@ public class BaiVietRes {
     private String slug;
     private String tomTat;
     private String noiDung;
-
+    private String hinhAnh;
     private String tacGia;
     private String trangThai;
     private Long luotXem;

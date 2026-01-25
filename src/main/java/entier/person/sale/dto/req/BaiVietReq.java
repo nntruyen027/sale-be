@@ -11,6 +11,7 @@ public class BaiVietReq {
     private String trangThai;
     private Long luotXem;
     private String tacGia;
-    
+    private String hinhAnh;
+
     private Long chuyenMucId;
 }

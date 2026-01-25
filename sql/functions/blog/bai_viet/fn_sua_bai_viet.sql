@@ -9,15 +9,23 @@ CREATE FUNCTION blog.fn_sua_bai_viet(
     p_chuyen_muc_id BIGINT,
     p_tac_gia VARCHAR,
     p_trang_thai VARCHAR,
-    p_nguoi_dang BIGINT
+    p_nguoi_dang BIGINT,
+    p_hinh_anh varchar
 )
     RETURNS jsonb
     LANGUAGE plpgsql
 AS
 $$
 declare
-    v_data jsonb;
+    v_data          jsonb;
+    v_current_image varchar;
 BEGIN
+    select "hinhAnh" into v_current_image from blog.bai_viet where id = p_id;
+
+    if v_current_image is not null or v_current_image != p_hinh_anh then
+        delete from files where url = v_current_image;
+    end if;
+
     UPDATE blog.bai_viet
     SET "tieuDe"      = p_tieu_de,
         slug          = p_slug,
@@ -27,6 +35,7 @@ BEGIN
         "tacGia"      = p_tac_gia,
         "trangThai"   = UPPER(COALESCE(p_trang_thai, "trangThai")),
         "nguoiDang"   = p_nguoi_dang,
+        "hinhAnh"     = p_hinh_anh,
         "ngayCapNhat" = now()
     WHERE id = p_id;
 

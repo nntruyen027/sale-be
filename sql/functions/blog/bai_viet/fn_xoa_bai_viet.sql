@@ -7,7 +7,14 @@ CREATE FUNCTION blog.fn_xoa_bai_viet(
     LANGUAGE plpgsql
 AS
 $$
+declare
+    v_current_image varchar;
 BEGIN
+    select "hinhAnh" into v_current_image from blog.bai_viet where id = p_id;
+
+    if v_current_image is not null then
+        delete from files where url = v_current_image;
+    end if;
     DELETE
     FROM blog.bai_viet
     WHERE id = p_id;

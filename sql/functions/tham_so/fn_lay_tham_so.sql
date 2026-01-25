@@ -10,7 +10,7 @@ declare
     v_data varchar;
 begin
     if not exists(select 1 from tham_so where khoa = p_khoa and "isEnable" = true) then
-        raise 'Khóa: % không tồn tại', p_khoa;
+        return null;
     end if;
 
     select "giaTri" into v_data from tham_so where khoa = p_khoa and "isEnable" = true;

@@ -13,6 +13,7 @@ SELECT b.id,
        b."ngayCapNhat",
        b."nguoiDang",
        b."chuyenMucId",
+       b."hinhAnh",
 
     /* ===== CHUYÊN MỤC ===== */
        CASE

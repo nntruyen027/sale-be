@@ -8,14 +8,12 @@ CREATE TABLE blog.bai_viet
     "tomTat"      TEXT,
     "noiDung"     TEXT                NOT NULL,
     "chuyenMucId" BIGINT REFERENCES blog.chuyen_muc (id),
-    "tacGiaId"    VARCHAR(500),
+    "tacGia"      VARCHAR(500),
     "trangThai"   VARCHAR(20) DEFAULT 'DRAFT', -- DRAFT / PUBLIC / HIDDEN
+    "hinhAnh"     varchar(500),
     "luotXem"     BIGINT      DEFAULT 0,
     "ngayTao"     TIMESTAMP   DEFAULT now(),
     "ngayCapNhat" TIMESTAMP   DEFAULT now(),
     "nguoiDang"   BIGINT REFERENCES auth.users (id)
 );
 
-
-alter table blog.bai_viet
-    add column "tacGia" varchar(500)

@@ -117,6 +117,7 @@ public class BaiVietRepo {
         params.add(baiVietReq.getTacGia());
         params.add(baiVietReq.getTrangThai());
         params.add(nguoiDang);
+        params.add(baiVietReq.getHinhAnh());
 
         return dbFunctionExecutor.execute(
                 "blog.fn_them_bai_viet",
@@ -136,6 +137,7 @@ public class BaiVietRepo {
         params.add(baiVietReq.getTacGia());
         params.add(baiVietReq.getTrangThai());
         params.add(nguoiDang);
+        params.add(baiVietReq.getHinhAnh());
 
         return dbFunctionExecutor.execute(
                 "blog.fn_sua_bai_viet",

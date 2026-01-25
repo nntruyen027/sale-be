@@ -8,7 +8,8 @@ CREATE FUNCTION blog.fn_them_bai_viet(
     p_chuyen_muc_id BIGINT,
     p_tac_gia VARCHAR,
     p_trang_thai VARCHAR,
-    p_nguoi_dang BIGINT
+    p_nguoi_dang BIGINT,
+    p_hinh_anh varchar
 )
     RETURNS jsonb
     LANGUAGE plpgsql
@@ -30,6 +31,7 @@ BEGIN
                                "chuyenMucId",
                                "tacGia",
                                "trangThai",
+                               "hinhAnh",
                                "nguoiDang")
     VALUES (p_tieu_de,
             p_slug,
@@ -38,6 +40,7 @@ BEGIN
             p_chuyen_muc_id,
             p_tac_gia,
             COALESCE(p_trang_thai, 'DRAFT'),
+            p_hinh_anh,
             p_nguoi_dang)
     RETURNING id INTO v_bai_viet_id;
 
@@ -51,7 +54,3 @@ BEGIN
 END;
 $$;
 
-
-select blog.fn_them_bai_viet(
-               'string', 'string46', 'string', 'string', 7, 'string', 'DRAFT', 1
-       );
