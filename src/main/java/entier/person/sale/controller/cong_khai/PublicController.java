@@ -5,6 +5,7 @@ import entier.person.sale.config.SecurityApiResponses;
 import entier.person.sale.dto.res.*;
 import entier.person.sale.service.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -94,4 +95,15 @@ public class PublicController {
         return ResponseEntity.ok(heThongService.layDsBanner());
     }
 
+
+    // =========================
+    // 4️⃣ ài đặt phần giới thiệu trang chủ
+    // =========================
+    @Operation(summary = "Lấy phần giới thiệu trang chủ")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Cài đặt thành công", content = @Content)
+    @GetMapping("/home-gioithieu")
+    public ResponseEntity<?> SetUpBannerGioiThieu() {
+        return ResponseEntity.ok(heThongService.layHomeGioiThieu());
+    }
 }
