@@ -19,13 +19,13 @@ begin
     if p_thu_tu is null then
         select coalesce(max("thuTu"), 0) + 1
         into v_max_thu_tu
-        from config.banner;
+        from config.thong_tin_he_thong;
 
         p_thu_tu := v_max_thu_tu;
     else
         -- 🔹 có truyền thứ tự → check trùng
         if exists (select 1
-                   from config.banner
+                   from config.thong_tin_he_thong
                    where "thuTu" = p_thu_tu) then
             raise exception 'Trùng thứ tự % với banner khác', p_thu_tu;
         end if;
@@ -33,21 +33,22 @@ begin
 
     -- 🔹 nếu set mặc định → bỏ mặc định cũ
     if p_mac_dinh = true then
-        update config.banner
+        update config.thong_tin_he_thong
         set "laMacDinh" = false
         where "laMacDinh" = true;
     end if;
 
     -- 🔹 insert banner mới
-    insert into config.banner(url, "thuTu", "hinhAnh", "laMacDinh")
-    values (p_url, p_thu_tu, p_hinh_anh, p_mac_dinh)
+    insert into config.thong_tin_he_thong(url, "thuTu", "hinhAnh", "laMacDinh", ten)
+    values (p_url, p_thu_tu, p_hinh_anh, p_mac_dinh, 'banner')
     returning id into v_new_id;
 
     -- 🔹 trả về bản ghi vừa tạo
     select to_jsonb(b)
     into v_data
-    from config.banner b
-    where b.id = v_new_id;
+    from config.thong_tin_he_thong b
+    where b.id = v_new_id
+      and ten = 'banner';
 
     return v_data;
 end;

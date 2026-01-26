@@ -28,4 +28,12 @@ public class HeThongService {
     public void xoaBanner(Long id) {
         heThongRepo.xoaBanner(id);
     }
+
+    public Object SetUpBannerGioiThieu(String object) {
+        return heThongRepo.setUpHomeGioiThieu(object);
+    }
+
+    public Object layHomeGioiThieu() {
+        return heThongRepo.layHomeGioiThieu();
+    }
 }

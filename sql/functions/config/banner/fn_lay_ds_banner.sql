@@ -9,12 +9,11 @@ declare
     v_data jsonb;
 
 begin
-
-
     select jsonb_agg(to_jsonb(r))
     into v_data
     from (select *
-          from config.banner l
+          from config.thong_tin_he_thong l
+          where l.ten = 'banner'
           order by "thuTu") r;
     return coalesce(v_data, '[]'::jsonb);
 end;

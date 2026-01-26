@@ -57,4 +57,20 @@ public class HeThongRepo {
                 List.of(id),
                 Boolean.class);
     }
+
+    public Object setUpHomeGioiThieu(String object) {
+        return dbFunctionExecutor.execute(
+                "config.fn_setup_home_gioithieu",
+                List.of(object),
+                Object.class
+        );
+    }
+
+    public Object layHomeGioiThieu() {
+        return dbFunctionExecutor.execute(
+                "config.fn_lay_home_gioithieu",
+                List.of(),
+                Object.class
+        );
+    }
 }

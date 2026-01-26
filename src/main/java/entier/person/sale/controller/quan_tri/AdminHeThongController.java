@@ -77,4 +77,26 @@ public class AdminHeThongController {
         heThongService.xoaBanner(id);
         return ResponseEntity.ok().build();
     }
+
+    // =========================
+    // 4️⃣ ài đặt phần giới thiệu trang chủ
+    // =========================
+    @Operation(summary = "Cài đặt phần giới thiệu trang chủ")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Cài đặt thành công", content = @Content)
+    @PostMapping("/home-gioithieu")
+    public ResponseEntity<?> SetUpBannerGioiThieu(@RequestBody String object) {
+        return ResponseEntity.ok(heThongService.SetUpBannerGioiThieu(object));
+    }
+
+    // =========================
+    // 4️⃣ ài đặt phần giới thiệu trang chủ
+    // =========================
+    @Operation(summary = "Lấy phần giới thiệu trang chủ")
+    @SecurityApiResponses
+    @ApiResponse(responseCode = "200", description = "Cài đặt thành công", content = @Content)
+    @GetMapping("/home-gioithieu")
+    public ResponseEntity<?> SetUpBannerGioiThieu() {
+        return ResponseEntity.ok(heThongService.layHomeGioiThieu());
+    }
 }
