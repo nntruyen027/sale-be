@@ -29,11 +29,11 @@ public class HeThongService {
         heThongRepo.xoaBanner(id);
     }
 
-    public Object SetUpBannerGioiThieu(String object) {
-        return heThongRepo.setUpHomeGioiThieu(object);
+    public Object SetUpCauHinh(String object, String cauHinh) {
+        return heThongRepo.setUpCauHinh(object, cauHinh);
     }
 
-    public Object layHomeGioiThieu() {
-        return heThongRepo.layHomeGioiThieu();
+    public Object layCauHinh(String cauHinh) {
+        return heThongRepo.layHomeCauHinh(cauHinh);
     }
 }

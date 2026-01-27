@@ -58,17 +58,17 @@ public class HeThongRepo {
                 Boolean.class);
     }
 
-    public Object setUpHomeGioiThieu(String object) {
+    public Object setUpCauHinh(String object, String cauHinh) {
         return dbFunctionExecutor.execute(
-                "config.fn_setup_home_gioithieu",
+                "config.fn_setup_" + cauHinh,
                 List.of(object),
                 Object.class
         );
     }
 
-    public Object layHomeGioiThieu() {
+    public Object layHomeCauHinh(String cauHinh) {
         return dbFunctionExecutor.execute(
-                "config.fn_lay_home_gioithieu",
+                "config.fn_lay_" + cauHinh,
                 List.of(),
                 Object.class
         );

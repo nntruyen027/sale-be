@@ -79,24 +79,24 @@ public class AdminHeThongController {
     }
 
     // =========================
-    // 4️⃣ ài đặt phần giới thiệu trang chủ
+    // 4️⃣ ài đặt phần cấu hình
     // =========================
-    @Operation(summary = "Cài đặt phần giới thiệu trang chủ")
+    @Operation(summary = "Cài đặt phần cấu hình")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Cài đặt thành công", content = @Content)
-    @PostMapping("/home-gioithieu")
-    public ResponseEntity<?> SetUpBannerGioiThieu(@RequestBody String object) {
-        return ResponseEntity.ok(heThongService.SetUpBannerGioiThieu(object));
+    @PostMapping("/{cauHinh}")
+    public ResponseEntity<?> SetUpBannerGioiThieu(@PathVariable String cauHinh, @RequestBody String object) {
+        return ResponseEntity.ok(heThongService.SetUpCauHinh(object, cauHinh));
     }
 
     // =========================
-    // 4️⃣ ài đặt phần giới thiệu trang chủ
+    // 4️⃣ ài đặt phần cấu hình
     // =========================
-    @Operation(summary = "Lấy phần giới thiệu trang chủ")
+    @Operation(summary = "Lấy phần cấu hình")
     @SecurityApiResponses
-    @ApiResponse(responseCode = "200", description = "Cài đặt thành công", content = @Content)
-    @GetMapping("/home-gioithieu")
-    public ResponseEntity<?> SetUpBannerGioiThieu() {
-        return ResponseEntity.ok(heThongService.layHomeGioiThieu());
+    @ApiResponse(responseCode = "200", description = "Lấy thành công", content = @Content)
+    @GetMapping("/{cauHinh}")
+    public ResponseEntity<?> SetUpBannerGioiThieu(@PathVariable String cauHinh) {
+        return ResponseEntity.ok(heThongService.layCauHinh(cauHinh));
     }
 }
