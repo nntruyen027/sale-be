@@ -112,7 +112,7 @@ public class PublicController {
     @Operation(summary = "Lấy danh sách sản phẩm (phân trang + tìm kiếm)")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
-    @GetMapping
+    @GetMapping("/san-pham")
     public ResponseEntity<PageResponse<SanPhamRes>> layDsSanPham(
             @RequestParam(required = false) Long loaiSp,
             @RequestParam(defaultValue = "") String search,
@@ -125,7 +125,7 @@ public class PublicController {
     @Operation(summary = "Lấy sản phẩm")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Lấy thành công")
-    @GetMapping("/{id}")
+    @GetMapping("/san-pham/{id}")
     public ResponseEntity<SanPhamRes> laySanPham(
             @PathVariable Long id
     ) {
