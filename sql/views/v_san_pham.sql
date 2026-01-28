@@ -21,13 +21,14 @@ SELECT sp.id,
                        )
                                 ) FILTER (WHERE bt.id IS NOT NULL),
                        '[]'::jsonb
-       ) AS "bienThe",
+       )           AS "bienThe",
        jsonb_build_object(
                'id', l.id,
                'ten', l.ten,
                'hinhAnh', l."hinhAnh",
                'parent', l.parent
-       ) AS loai
+       )           AS loai,
+       min(bt.gia) as gia
 FROM product.san_pham sp
          LEFT JOIN product.v_loai l ON sp."loaiId" = l.id
          LEFT JOIN product.bien_the bt ON bt."sanPhamId" = sp.id

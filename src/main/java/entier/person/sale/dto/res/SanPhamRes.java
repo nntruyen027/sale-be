@@ -14,4 +14,5 @@ public class SanPhamRes {
     Timestamp ngayTao;
     LoaiSpRes loai;
     List<BienTheRes> bienThe;
+    Long gia;
 }
