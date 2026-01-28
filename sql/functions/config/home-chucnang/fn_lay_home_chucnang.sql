@@ -1,6 +1,6 @@
-DROP FUNCTION IF EXISTS config.fn_lay_home_gioithieu;
+DROP FUNCTION IF EXISTS config.fn_lay_home_chucnang;
 
-CREATE FUNCTION config.fn_lay_home_gioithieu(
+CREATE FUNCTION config.fn_lay_home_chucnang(
 )
     RETURNS jsonb
     LANGUAGE plpgsql
@@ -13,7 +13,7 @@ BEGIN
     into v_data
     from (select *
           from config.thong_tin_he_thong
-          where ten = 'home_gioithieu'
+          where ten = 'home_chucnang'
           limit 1) r;
 
     RETURN v_data;
