@@ -14,8 +14,6 @@ import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/cong-khai")
 @Getter
@@ -87,16 +85,6 @@ public class PublicController {
 
         return ResponseEntity.ok(loaiSpService.layDsLoaiSp(search, page, size));
     }
-
-    @Operation(summary = "Lấy danh sách banner")
-    @SecurityApiResponses
-    @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
-    @GetMapping("/banner")
-    public ResponseEntity<List<BannerRes>> layDsBanner(
-    ) {
-        return ResponseEntity.ok(heThongService.layDsBanner());
-    }
-
 
     // =========================
     // 4️⃣ ài đặt phần cấu hình
