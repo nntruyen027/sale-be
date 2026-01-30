@@ -35,6 +35,7 @@ public class LoaiSpRepo {
         params.add(loaiSpReq.getTen());
         params.add(loaiSpReq.getParentId());
         params.add(loaiSpReq.getHinhAnh());
+        params.add(loaiSpReq.getSlug());
         return dbFunctionExecutor.execute(
                 "product.fn_them_loai",
                 params,
@@ -48,6 +49,7 @@ public class LoaiSpRepo {
         params.add(loaiSpReq.getTen());
         params.add(loaiSpReq.getParentId());
         params.add(loaiSpReq.getHinhAnh());
+        params.add(loaiSpReq.getSlug());
         return dbFunctionExecutor.execute(
                 "product.fn_sua_loai",
                 params,

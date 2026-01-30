@@ -8,4 +8,5 @@ public class SanPhamReq {
     String ten;
     String hinhAnh;
     String moTa;
+    String slug;
 }

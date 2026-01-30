@@ -39,6 +39,8 @@ public class SanPhamRepo {
         params.add(sanPhamReq.getTen());
         params.add(sanPhamReq.getHinhAnh());
         params.add(sanPhamReq.getMoTa());
+        params.add(sanPhamReq.getSlug());
+        
         return
                 dbFunctionExecutor.execute(
                         "product.fn_them_san_pham",
@@ -54,6 +56,8 @@ public class SanPhamRepo {
         params.add(sanPhamReq.getTen());
         params.add(sanPhamReq.getHinhAnh());
         params.add(sanPhamReq.getMoTa());
+        params.add(sanPhamReq.getSlug());
+
         return
                 dbFunctionExecutor.execute(
                         "product.fn_sua_san_pham",
@@ -97,6 +101,7 @@ public class SanPhamRepo {
         params.add(bienTheReq.getKichCo());
         params.add(bienTheReq.getGia());
         params.add(bienTheReq.getTonKho());
+
 
         return dbFunctionExecutor.execute(
                 "product.fn_sua_bien_the",

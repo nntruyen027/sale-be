@@ -7,4 +7,5 @@ public class LoaiSpReq {
     String ten;
     String hinhAnh;
     Long parentId;
+    String slug;
 }

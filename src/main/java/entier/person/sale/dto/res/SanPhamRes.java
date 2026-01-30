@@ -15,4 +15,5 @@ public class SanPhamRes {
     LoaiSpRes loai;
     List<BienTheRes> bienThe;
     Long gia;
+    String slug;
 }

@@ -7,5 +7,6 @@ public class LoaiSpRes {
     Long id;
     String ten;
     String hinhAnh;
+    String slug;
     LoaiSpParRes parent;
 }

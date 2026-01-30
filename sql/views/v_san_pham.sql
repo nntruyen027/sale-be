@@ -28,7 +28,8 @@ SELECT sp.id,
                'hinhAnh', l."hinhAnh",
                'parent', l.parent
        )                        AS loai,
-       coalesce(min(bt.gia), 0) as gia
+       coalesce(min(bt.gia), 0) as gia,
+       sp.slug
 FROM product.san_pham sp
          LEFT JOIN product.v_loai l ON sp."loaiId" = l.id
          LEFT JOIN product.bien_the bt ON bt."sanPhamId" = sp.id

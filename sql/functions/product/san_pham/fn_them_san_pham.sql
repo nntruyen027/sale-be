@@ -4,7 +4,8 @@ create function product.fn_them_san_pham(
     pLoaiSp bigint,
     pTen varchar,
     pHinhAnh varchar,
-    pMoTa varchar
+    pMoTa varchar,
+    pSlug varchar
 )
     returns jsonb
 as
@@ -13,8 +14,12 @@ declare
     v_new_id bigint;
     v_data   jsonb;
 begin
-    insert into product.san_pham("loaiId", ten, "hinhAnh", "moTa")
-    values (pLoaiSp, pTen, pHinhAnh, pMoTa)
+    if exists(select 1 from product.san_pham where slug = pSlug) then
+        raise '% đã tồn tại', pSlug;
+    end if;
+
+    insert into product.san_pham("loaiId", ten, "hinhAnh", "moTa", slug)
+    values (pLoaiSp, pTen, pHinhAnh, pMoTa, pSlug)
     returning id into v_new_id;
 
     select to_jsonb(sp)

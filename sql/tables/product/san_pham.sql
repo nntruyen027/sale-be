@@ -7,5 +7,7 @@ create table product.san_pham
     ten       varchar(255) not null,
     "hinhAnh" varchar(500),
     "moTa"    text,
-    "ngayTao" timestamp default now()
+    "ngayTao" timestamp default now(),
+    slug      varchar(200)
 )
+

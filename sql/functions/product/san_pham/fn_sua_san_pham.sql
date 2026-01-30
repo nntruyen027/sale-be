@@ -5,20 +5,25 @@ create function product.fn_sua_san_pham(
     pLoaiSp bigint,
     pTen varchar,
     pHinhAnh varchar,
-    pMoTa varchar
+    pMoTa varchar,
+    pSlug varchar
 )
     returns jsonb
 as
 $$
 declare
-    v_new_id bigint;
-    v_data   jsonb;
+    v_data jsonb;
 begin
+    if exists(select 1 from product.san_pham where slug = pSlug and id != pId) then
+        raise '% đã tồn tại', pSlug;
+    end if;
+
     update product.san_pham
     set ten       = pTen,
         "hinhAnh" = pHinhAnh,
         "moTa"    = pMoTa,
-        "loaiId"  = pLoaiSp
+        "loaiId"  = pLoaiSp,
+        "slug"    = pSlug
     where id = pId;
 
     select to_jsonb(sp)
