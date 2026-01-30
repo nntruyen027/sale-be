@@ -97,26 +97,27 @@ public class PublicController {
         return ResponseEntity.ok(heThongService.layCauHinh(cauHinh));
     }
 
+
     @Operation(summary = "Lấy danh sách sản phẩm (phân trang + tìm kiếm)")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Lấy danh sách thành công")
     @GetMapping("/san-pham")
     public ResponseEntity<PageResponse<SanPhamRes>> layDsSanPham(
-            @RequestParam(required = false) Long loaiSp,
+            @RequestParam(required = false) String loaiSp,
             @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        return ResponseEntity.ok(SpService.layDsSanPham(loaiSp, search, page, size));
+        return ResponseEntity.ok(SpService.layDsSanPhamTheoLoai(loaiSp, search, page, size));
     }
 
     @Operation(summary = "Lấy sản phẩm")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Lấy thành công")
-    @GetMapping("/san-pham/{id}")
+    @GetMapping("/san-pham/{slug}")
     public ResponseEntity<SanPhamRes> laySanPham(
-            @PathVariable Long id
+            @PathVariable String slug
     ) {
-        return ResponseEntity.ok(SpService.laySanPham(id));
+        return ResponseEntity.ok(SpService.laySanPham(slug));
     }
 }

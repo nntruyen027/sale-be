@@ -33,6 +33,21 @@ public class SanPhamRepo {
         );
     }
 
+    public PageResponse<SanPhamRes> layDsSanPhamTheoLoai(String slug, String search, int page, int size) {
+        List<Object> params = new ArrayList<>();
+        params.add(slug);
+        params.add(search);
+        params.add(page);
+        params.add(size);
+
+        return dbFunctionExecutor.execute(
+                "product.fn_lay_ds_san_pham_theo_loai",
+                params,
+                new TypeReference<PageResponse<SanPhamRes>>() {
+                }
+        );
+    }
+
     public SanPhamRes taoSanPham(SanPhamReq sanPhamReq) {
         List<Object> params = new ArrayList<>();
         params.add(sanPhamReq.getLoaiId());
@@ -40,7 +55,7 @@ public class SanPhamRepo {
         params.add(sanPhamReq.getHinhAnh());
         params.add(sanPhamReq.getMoTa());
         params.add(sanPhamReq.getSlug());
-        
+
         return
                 dbFunctionExecutor.execute(
                         "product.fn_them_san_pham",
@@ -118,10 +133,10 @@ public class SanPhamRepo {
         );
     }
 
-    public SanPhamRes laySanPham(Long id) {
+    public SanPhamRes laySanPham(String slug) {
         return dbFunctionExecutor.execute(
                 "product.fn_lay_san_pham",
-                List.of(id),
+                List.of(slug),
                 SanPhamRes.class
         );
     }

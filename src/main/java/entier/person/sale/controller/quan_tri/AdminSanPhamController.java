@@ -46,11 +46,11 @@ public class AdminSanPhamController {
     @Operation(summary = "Lấy sản phẩm")
     @SecurityApiResponses
     @ApiResponse(responseCode = "200", description = "Lấy thành công")
-    @GetMapping("/{id}")
+    @GetMapping("/{slug}")
     public ResponseEntity<SanPhamRes> laySanPham(
-            @PathVariable Long id
+            @PathVariable String slug
     ) {
-        return ResponseEntity.ok(loaiSpService.laySanPham(id));
+        return ResponseEntity.ok(loaiSpService.laySanPham(slug));
     }
 
     // 2) Tạo mới sản phẩm

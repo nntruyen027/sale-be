@@ -18,6 +18,11 @@ public class SanPhamService {
         return sanPhamRepo.layDsSanPham(loaiId, search, page, size);
     }
 
+
+    public PageResponse<SanPhamRes> layDsSanPhamTheoLoai(String loaiSlug, String search, int page, int size) {
+        return sanPhamRepo.layDsSanPhamTheoLoai(loaiSlug, search, page, size);
+    }
+
     public SanPhamRes taoSanPham(SanPhamReq sanPhamReq) {
         return sanPhamRepo.taoSanPham(sanPhamReq);
     }
@@ -42,7 +47,7 @@ public class SanPhamService {
         sanPhamRepo.xoaBienThe(id, spId);
     }
 
-    public SanPhamRes laySanPham(Long id) {
-        return sanPhamRepo.laySanPham(id);
+    public SanPhamRes laySanPham(String slug) {
+        return sanPhamRepo.laySanPham(slug);
     }
 }
